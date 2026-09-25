@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyurNutri Hybrid Architecture</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        h1,
+        h2 {
+            color: #1B4332;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .instructions {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        button {
+            background-color: #D4A24E;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #c09142;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #eee;
+            margin: 40px 0;
+        }
+
+        @media print {
+            button,
+            .instructions {
+                display: none;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>AyurNutri: Complete System Flowcharts</h1>
+        <div class="instructions">
+            <button onclick="window.print()">🖨️ Save as PDF / Print</button>
+            <p>Comprehensive academic flowcharts designed for IEEE Paper integration.</p>
+        </div>
+
+        <h2>1. Complete IEEE System Data Flow (Master Architecture)</h2>
+        <p class="instructions">A dense, single-view diagram showing the holistic lifecycle of data across the entire system. Highly recommended as the primary figure for your IEEE paper.</p>
+        
+        <pre class="mermaid">
+        graph LR
+            classDef mobile fill:#e8f4ec,stroke:#1B4332,stroke-width:2px,color:#0A1A12;
+            classDef api fill:#f0f8ff,stroke:#2b6cb0,stroke-width:2px,color:#1a365d;
+            classDef engine fill:#e6f7ff,stroke:#1890ff,stroke-width:2px;
+            classDef genai fill:#f5f5f5,stroke:#718096,stroke-width:2px,color:#2d3748;
+
+            subgraph "1. Client Layer"
+                App[React Native App]:::mobile
+            end
+
+            subgraph "2. Gateway Layer"
+                API[FastAPI Gateway]:::api
+            end
+
+            subgraph "3. Core Algorithmic Layer"
+                ML[Dosha ML Classifier]:::engine
+                Opt[Meal Optimizer]:::engine
+                RAG[Chatbot TF-IDF]:::engine
+            end
+
+            subgraph "4. Data & NLP Layer"
+                DB[(Local DBs)]:::api
+                NLP[NLP & Vision Module]:::genai
+            end
+
+            App -->|JSON Request| API
+            API -->|Route Tasks| ML
+            API -->|Route Tasks| Opt
+            API -->|Route Tasks| RAG
+
+            ML --> DB
+            Opt <--> DB
+            RAG <--> DB
+
+            Opt -->|Format Results| NLP
+            RAG -->|Provide Context| NLP
+
+            AI -->|JSON Response| API
+            API -->|Display Data| App
+        </pre>
+
+        <hr class="page-break">
+
+        <h2>2. Frontend Architecture (React Native / Expo)</h2>
+        <pre class="mermaid">
+        graph TD
+            classDef ui fill:#e8f4ec,stroke:#1B4332,stroke-width:2px,color:#0A1A12;
+            classDef logic fill:#fffbe6,stroke:#d4a24e,stroke-width:2px,color:#5c3a21;
+            classDef api fill:#f0f8ff,stroke:#2b6cb0,stroke-width:2px,color:#1a365d;
+
+            subgraph "Mobile App (Expo Go)"
+                Screens[User Interface & Navigation]:::ui
+                State[Context API / AsyncStorage]:::logic
+                Axios[API Client layer]:::api
+                
+                Screens -- "User Actions" --> State
+                State -- "Update UI" --> Screens
+                
+                Screens -- "Trigger Fetch" --> Axios
+                Axios -- "Return Data" --> State
+            end
+            
+            BackendAPI[FastAPI Backend Endpoint]:::api
+            
+            Axios -- "HTTP JSON Payload" --> BackendAPI
+            BackendAPI -- "HTTP JSON Response" --> Axios
+        </pre>
+
+        <hr class="page-break">
+
+        <h2>3. Backend Architecture (FastAPI & Hybrid Logic)</h2>
+        <pre class="mermaid">
+        graph TD
+            classDef backend fill:#f0f8ff,stroke:#2b6cb0,stroke-width:2px,color:#1a365d;
+            classDef database fill:#f5f5f5,stroke:#718096,stroke-width:2px,color:#2d3748;
+            classDef Integrated fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#e65100;
+
+            Incoming[Incoming Request from App]:::backend
+            
+            subgraph "Python FastAPI Server"
+                Router[API Router]:::backend
+                
+                subgraph "Core Algorithmic Logic"
+                    MLService[Scikit-Learn ML Inference <br> Random Forest Classifier]:::backend
+                    OptService[Mathematical Optimization <br> Constraint Satisfaction]:::backend
+                    RAGService[TF-IDF Retrieval <br> Context Search]:::backend
+                end
+                
+                Router --> MLService
+                Router --> OptService
+                Router --> RAGService
+            end
+
+            subgraph "Storage Layer"
+                NutriDB[(Ayurvedic & Nutritional DB <br> JSON/CSV)]:::database
+                VectorDB[(Ayurvedic Corpus <br> TF-IDF Matrices)]:::database
+            end
+
+            subgraph "Advanced Processing Modules"
+                NLPService[Internal NLP & CV Services]:::Integrated
+            end
+
+            Incoming --> Router
+            
+            %% Backend to Database connections
+            OptService <--> NutriDB
+            RAGService <--> VectorDB
+
+            %% Backend to Integrated APIs connections
+            RAGService -- "Retrieved Medical Context + Query" --> NLPService
+            OptService -- "Optimized Raw Ingredient List" --> NLPService
+            NLPService -- "Formatted Natural Language" --> RAGService
+        </pre>
+
+        <hr class="page-break">
+
+        <h2>4. Technical Algorithm Flowcharts</h2>
+        <pre class="mermaid">
+        graph TD
+            classDef logic fill:#e6f7ff,stroke:#1890ff,stroke-width:2px;
+            classDef ai fill:#fff2e8,stroke:#fa541c,stroke-width:2px;
+            classDef db fill:#f6ffed,stroke:#52c41a,stroke-width:2px;
+
+            subgraph "Algorithmic Contribution A: Dosha Classification (Machine Learning)"
+                A1[User Submits Physical/Mental Questionnaire]:::logic --> A2[Python Backend Parses JSON]:::logic
+                A2 --> A3[Encode Categorical Variables into Float Array]:::logic
+                A3 --> A4[Load Scikit-Learn Model dosha_classifier.pkl]:::logic
+                A4 --> A5[Run inference: model.predict_proba]:::logic
+                A5 --> A6[Return Deterministic Dosha Probabilities]:::logic
+            end
+
+            subgraph "Algorithmic Contribution B: Meal Optimization (Constraint Satisfaction)"
+                B1[Input: Target Macros & Predicted Dosha]:::logic --> B2[Load Nutritional Database]:::db
+                B2 --> B3[Apply Ayurvedic Constraint:<br>Filter out ingredients that aggravate Dosha]:::logic
+                B3 --> B4[Apply Macro Constraint:<br>Greedy selection to hit exact Protein/Carb/Fat targets]:::logic
+                B4 --> B5[Mathematically Verified Ingredient List Generated]:::logic
+                B5 -.-> B6[NLP Formatter converts raw list into readable recipe format]:::ai
+            end
+
+            subgraph "Algorithmic Contribution C: Medical Chatbot (Retrieval Augmented Generation)"
+                C1[User asks health question]:::logic --> C2[TF-IDF Vectorizer processes query]:::logic
+                C2 --> C3[Calculate Cosine Similarity against Corpus]:::logic
+                C3 --> C4[Retrieve top 3 most relevant paragraphs]:::db
+                C4 --> C5[Construct strict prompt embedding retrieved text]:::logic
+                C5 -.-> C6[NLP Formatter answers strictly using context provided]:::ai
+            end
+        </pre>
+
+        <hr class="page-break">
+
+        <h2>5. Food Scanner (Vision API) Flow</h2>
+        <pre class="mermaid">
+        graph LR
+            classDef logic fill:#e6f7ff,stroke:#1890ff,stroke-width:2px;
+            classDef ai fill:#fff2e8,stroke:#fa541c,stroke-width:2px;
+
+            User[User captures Food Image]:::logic --> B64[React Native Encodes to Base64]:::logic
+            B64 --> EP[POST /api/analyze-food/]:::logic
+            EP --> VLM[Computer Vision Module]:::ai
+            VLM --> Extract[Backend Extracts JSON Array]:::logic
+            Extract --> App[React Native displays UI Cards]:::logic
+        </pre>
+    </div>
+
+</body>
+
+</html>
