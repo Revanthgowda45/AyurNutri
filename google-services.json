@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "566907863017",
+    "project_id": "ayurnutri-9d2bd",
+    "storage_bucket": "ayurnutri-9d2bd.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566907863017:android:ae3f49dfbc6bb9120ad578",
+        "android_client_info": {
+          "package_name": "com.ayurnutri.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMpi535lebrzjuuSHWTWTG7XQeYohvXZQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

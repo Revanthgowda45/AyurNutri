@@ -1,0 +1,10 @@
+node_modules/
+.expo/
+android/
+ios/
+backend/
+dist/
+web-build/
+.idea/
+.vscode/
+.git/
