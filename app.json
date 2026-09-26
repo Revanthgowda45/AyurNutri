@@ -5,7 +5,10 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
-    "scheme": "ayurnutri",
+    "scheme": [
+      "ayurnutri",
+      "com.googleusercontent.apps.566907863017-11bnqdvh762ooaqm80cfiktac25o35qk"
+    ],
     "userInterfaceStyle": "automatic",
     "android": {
       "package": "com.ayurnutri.app",
@@ -43,7 +46,9 @@
       ],
       "expo-video",
       "expo-font",
-      "expo-web-browser"
+      "expo-web-browser",
+      "expo-image",
+      "expo-status-bar"
     ],
     "experiments": {
       "typedRoutes": true,

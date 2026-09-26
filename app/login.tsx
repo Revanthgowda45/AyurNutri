@@ -49,7 +49,9 @@ export default function LoginScreen() {
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
         webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
         androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
-        redirectUri: AuthSession.makeRedirectUri(),
+        redirectUri: Platform.OS === 'android' 
+            ? 'com.googleusercontent.apps.566907863017-11bnqdvh762ooaqm80cfiktac25o35qk:/oauth2redirect/google' 
+            : AuthSession.makeRedirectUri(),
         prompt: AuthSession.Prompt.SelectAccount,
     });
 
