@@ -7,6 +7,7 @@ import { getTodayIndex, getWeekStartDate } from "@/utils/weekUtils";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from 'expo-haptics';
 import * as ImagePicker from 'expo-image-picker';
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -380,18 +381,20 @@ export default function ProfileScreen() {
       />
 
       {/* Modern Redesigned Header */}
-      <View
+      <LinearGradient
+        colors={isDark ? [colors.card, colors.headerBg] : [colors.headerBg, '#2D6A4F']}
         style={[
           s.headerBlock,
-          { backgroundColor: isDark ? colors.card : colors.headerBg },
           isScrolled && {
-            shadowColor: colors.shadow,
+            shadowColor: '#000',
             shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.1,
+            shadowOpacity: 0.12,
             shadowRadius: 16,
             elevation: 4,
           },
         ]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
       >
         <Animated.View style={[s.headerContent, { opacity: fade }]}>
           <View style={s.headerTopRow}>
@@ -484,7 +487,7 @@ export default function ProfileScreen() {
             </View>
           </View>
         </Animated.View>
-      </View>
+      </LinearGradient>
 
       <Animated.View
         style={[
@@ -975,18 +978,18 @@ const s = StyleSheet.create({
   },
   memberText: { fontSize: 9, fontWeight: "700" },
   
-  body: { paddingHorizontal: 20, paddingTop: 28, paddingBottom: 140, width: '100%', maxWidth: 900, alignSelf: 'center' },
+  body: { paddingHorizontal: 18, paddingTop: 24, paddingBottom: 140, width: '100%', maxWidth: 900, alignSelf: 'center' },
   sectionHeader: { 
     flexDirection: "row", 
     justifyContent: "space-between", 
     alignItems: "center", 
     marginBottom: 12, 
-    paddingHorizontal: 4 
+    paddingHorizontal: 2,
   },
   sectionLabel: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: "800",
-    letterSpacing: 1.5,
+    letterSpacing: 2,
     marginBottom: 12,
     marginLeft: 4,
     textTransform: "uppercase",
@@ -1049,12 +1052,12 @@ const s = StyleSheet.create({
   doshaStatDivider: { width: 1, height: 24 },
 
   card: {
-    borderRadius: 24,
-    marginBottom: 24,
+    borderRadius: 20,
+    marginBottom: 16,
     overflow: "hidden",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 12,
+    shadowOpacity: 0.06,
+    shadowRadius: 14,
     elevation: 3,
   },
   
@@ -1067,44 +1070,45 @@ const s = StyleSheet.create({
   
   signOutBtn: {
     flexDirection: "row",
-    borderRadius: 18,
-    height: 58,
+    borderRadius: 16,
+    height: 54,
     width: '100%',
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1.5,
   },
-  signOutText: { fontSize: 16, fontWeight: "800", letterSpacing: 0.5 },
+  signOutText: { fontSize: 15, fontWeight: "800", letterSpacing: 0.5 },
 
   /* Row */
   rowContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 18,
+    paddingHorizontal: 18,
+    paddingVertical: 16,
   },
   rowIconBox: {
-    width: 44,
-    height: 44,
-    borderRadius: 14,
+    width: 40,
+    height: 40,
+    borderRadius: 12,
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 16,
+    marginRight: 14,
   },
   rowLabel: {
     fontSize: 10,
     fontWeight: "800",
     letterSpacing: 1.2,
     textTransform: "uppercase",
-    opacity: 0.8,
+    opacity: 0.55,
   },
-  rowValue: { fontSize: 16, fontWeight: "700", marginTop: 3 },
+  rowValue: { fontSize: 15, fontWeight: "700", marginTop: 3 },
   rowArrowBox: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     alignItems: "center",
     justifyContent: "center",
+    opacity: 0.5,
   },
 
   /* Favorites (Matching the existing scroll) */

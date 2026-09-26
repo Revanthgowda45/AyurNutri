@@ -192,9 +192,9 @@ export default function LoginScreen() {
                                 <Text style={s.panelBrandText}>AyurNutri</Text>
                             </View>
                             <Text style={s.panelHeadline}>{"Ancient Wisdom,\nModern AI."}</Text>
-                            <Text style={s.panelSub}>Your personal Ayurvedic dietitian, powered by a private on-device Neural Engine.</Text>
+                            <Text style={s.panelSub}>Your personal Ayurvedic wellness companion, powered by modern AI.</Text>
                             <View style={s.featureList}>
-                                {["Hyper-personalized Dosha diet plans", "Private — AI runs fully on-device", "Smart food scanner with Dosha scoring"].map((f, i) => (
+                                {["Hyper-personalized Dosha diet plans", "Connect with verified BAMS experts", "Smart food scanner for Dosha scoring"].map((f, i) => (
                                     <View key={i} style={s.featureItem}>
                                         <Ionicons name="checkmark-circle" size={18} color={GOLD} />
                                         <Text style={s.featureText}>{f}</Text>
@@ -244,58 +244,59 @@ export default function LoginScreen() {
 }
 
 const s = StyleSheet.create({
-    root: { flex: 1, backgroundColor: "#050E07" },
-    glow: { position: "absolute", width: 300, height: 300, borderRadius: 150, opacity: 0.12, filter: "blur(80px)" as any },
+    root: { flex: 1, backgroundColor: "#050E07", overflow: "hidden" },
+    glow: { position: "absolute", width: 320, height: 320, borderRadius: 160, opacity: 0.1, filter: "blur(80px)" as any },
 
     /* Desktop */
     desktopLayout: { flex: 1, flexDirection: "row" },
-    leftPanel: { width: "42%", flexDirection: "column", paddingHorizontal: 60, paddingTop: 40, paddingBottom: 48, overflow: "hidden" },
+    leftPanel: { width: "45%", flexDirection: "column", paddingHorizontal: 64, paddingTop: 40, paddingBottom: 48, overflow: "hidden" },
     leftContent: { zIndex: 1, flex: 1, justifyContent: "center" },
-    brandRow: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 48 },
-    panelLogo: { width: 44, height: 44 },
-    panelBrandText: { fontSize: 24, fontWeight: "900", color: CREAM, letterSpacing: 0.5 },
-    panelHeadline: { fontSize: 42, fontWeight: "900", color: CREAM, lineHeight: 52, letterSpacing: -1, marginBottom: 20 },
-    panelSub: { fontSize: 16, color: MUTED, lineHeight: 26, marginBottom: 40 },
-    featureList: { gap: 14 },
-    featureItem: { flexDirection: "row", alignItems: "center", gap: 12 },
-    featureText: { color: "rgba(253,248,240,0.75)", fontSize: 15, fontWeight: "500" },
+    brandRow: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 52 },
+    panelLogo: { width: 40, height: 40, borderRadius: 10 },
+    panelBrandText: { fontSize: 22, fontWeight: "900", color: CREAM, letterSpacing: 0.3 },
+    panelHeadline: { fontSize: 44, fontWeight: "900", color: CREAM, lineHeight: 54, letterSpacing: -1.5, marginBottom: 18 },
+    panelSub: { fontSize: 16, color: MUTED, lineHeight: 27, marginBottom: 44 },
+    featureList: { gap: 16 },
+    featureItem: { flexDirection: "row", alignItems: "center", gap: 14 },
+    featureText: { color: "rgba(253,248,240,0.7)", fontSize: 15, fontWeight: "500", lineHeight: 22 },
     rightPanel: { flex: 1, overflow: "hidden" },
     rightScroll: { flexGrow: 1, justifyContent: "center", alignItems: "center", paddingVertical: 60, paddingHorizontal: 20 },
 
     /* Mobile */
-    mobileScroll: { flexGrow: 1, paddingHorizontal: 24, paddingTop: 72, paddingBottom: 200 },
+    mobileScroll: { flexGrow: 1, paddingHorizontal: 26, paddingTop: 70, paddingBottom: 200, backgroundColor: "#050E07", alignItems: "center" },
 
     /* Form */
     formWrap: { width: "100%", maxWidth: 420 },
-    formHeader: { marginBottom: 36 },
-    mobileBrand: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 32, justifyContent: "center" },
-    mobileLogo: { width: 40, height: 40 },
-    mobileBrandText: { fontSize: 22, fontWeight: "900", color: CREAM },
-    formTitle: { fontSize: 30, fontWeight: "900", color: CREAM, letterSpacing: -0.5, marginBottom: 8 },
-    formSub: { fontSize: 15, color: MUTED },
+    formHeader: { marginBottom: 40, alignItems: "center" },
+    mobileBrand: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 36, justifyContent: "center" },
+    mobileLogo: { width: 38, height: 38, borderRadius: 10 },
+    mobileBrandText: { fontSize: 20, fontWeight: "900", color: CREAM, letterSpacing: 0.2 },
+    formTitle: { fontSize: 32, fontWeight: "900", color: CREAM, letterSpacing: -0.8, marginBottom: 10, textAlign: "center" },
+    formSub: { fontSize: 15, color: MUTED, textAlign: "center", lineHeight: 22 },
 
-    errBox: { flexDirection: "row", alignItems: "center", backgroundColor: "rgba(248,113,113,0.1)", borderWidth: 1, borderColor: "rgba(248,113,113,0.25)", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, marginBottom: 20 },
+    errBox: { flexDirection: "row", alignItems: "center", backgroundColor: "rgba(248,113,113,0.08)", borderWidth: 1, borderColor: "rgba(248,113,113,0.2)", borderRadius: 14, paddingHorizontal: 14, paddingVertical: 12, marginBottom: 20, gap: 8 },
     errText: { color: "#F87171", fontSize: 13, fontWeight: "500", flex: 1 },
 
-    fieldWrap: { marginBottom: 20 },
-    label: { fontSize: 11, fontWeight: "700", letterSpacing: 1.5, color: "rgba(253,248,240,0.4)", marginBottom: 8 },
-    inputRow: { flexDirection: "row", alignItems: "center", backgroundColor: INPUT_BG, borderWidth: 1, borderColor: BORDER, borderRadius: 14, paddingHorizontal: 16, height: 54 },
-    inputFocused: { borderColor: "rgba(212,162,78,0.6)", backgroundColor: "rgba(212,162,78,0.05)" },
+    fieldWrap: { marginBottom: 18 },
+    label: { fontSize: 10, fontWeight: "700", letterSpacing: 1.8, color: "rgba(253,248,240,0.35)", marginBottom: 8, textTransform: "uppercase" },
+    inputRow: { flexDirection: "row", alignItems: "center", backgroundColor: INPUT_BG, borderWidth: 1, borderColor: BORDER, borderRadius: 16, paddingHorizontal: 16, height: 56 },
+    inputFocused: { borderColor: `${GOLD}70`, backgroundColor: `${GOLD}06` },
     input: { flex: 1, fontSize: 15, color: CREAM },
 
-    forgotWrap: { alignItems: "flex-end", marginBottom: 28, marginTop: -8 },
-    forgotText: { fontSize: 13, color: GOLD, fontWeight: "600" },
+    forgotWrap: { alignItems: "flex-end", marginBottom: 28, marginTop: -4 },
+    forgotText: { fontSize: 13, color: GOLD, fontWeight: "700" },
 
-    primaryBtn: { flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: GOLD, height: 54, borderRadius: 14, shadowColor: GOLD, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.35, shadowRadius: 16, elevation: 8, marginBottom: 24 },
-    primaryBtnText: { color: GREEN, fontSize: 16, fontWeight: "800" },
+    primaryBtn: { flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: GOLD, height: 56, borderRadius: 16, shadowColor: GOLD, shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.4, shadowRadius: 20, elevation: 10, marginBottom: 28, gap: 8 },
+    primaryBtnText: { color: GREEN, fontSize: 16, fontWeight: "900", letterSpacing: 0.3 },
 
     switchRow: { flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: 24 },
     switchText: { fontSize: 14, color: MUTED },
-    switchLink: { fontSize: 14, color: GOLD, fontWeight: "700" },
+    switchLink: { fontSize: 14, color: GOLD, fontWeight: "800" },
 
-    backWrap: { flexDirection: "row", justifyContent: "center", alignItems: "center" },
-    backText: { fontSize: 13, color: "rgba(253,248,240,0.3)" },
+    backWrap: { flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 6 },
+    backText: { fontSize: 13, color: "rgba(253,248,240,0.25)", fontWeight: "500" },
 
-    leftBackBtn: { flexDirection: "row", alignItems: "center", paddingVertical: 12, zIndex: 1 },
-    leftBackText: { fontSize: 14, color: "rgba(253,248,240,0.5)", fontWeight: "600" },
+    leftBackBtn: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 12, zIndex: 1 },
+    leftBackText: { fontSize: 14, color: "rgba(253,248,240,0.4)", fontWeight: "600" },
 });
+

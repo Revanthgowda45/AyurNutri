@@ -18,6 +18,7 @@ import {
   TouchableOpacity,
   View,
   Modal,
+  Platform,
   useWindowDimensions,
 } from "react-native";
 import {
@@ -68,6 +69,9 @@ export default function HomeScreen() {
 
   const fade = useRef(new Animated.Value(0)).current;
   const slideUp = useRef(new Animated.Value(20)).current;
+  // Two separate Animated.Values: native driver can't handle maxHeight
+  const statsOpacity = useRef(new Animated.Value(1)).current;  // native driver
+  const statsHeight = useRef(new Animated.Value(120)).current; // JS driver (layout prop)
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeMealIndex, setActiveMealIndex] = useState(0);
   const [showNotifModal, setShowNotifModal] = useState(false);
@@ -200,7 +204,25 @@ export default function HomeScreen() {
 
   const handleScroll = (event: any) => {
     const offsetY = event.nativeEvent.contentOffset.y;
-    setIsScrolled(offsetY > 10);
+    const scrolled = offsetY > 10;
+    if (scrolled !== isScrolled) {
+      setIsScrolled(scrolled);
+      // Only animate stats collapse on web - keep always visible on native
+      if (Platform.OS === 'web') {
+        Animated.parallel([
+          Animated.timing(statsOpacity, {
+            toValue: scrolled ? 0 : 1,
+            duration: 220,
+            useNativeDriver: true,
+          }),
+          Animated.timing(statsHeight, {
+            toValue: scrolled ? 0 : 120,
+            duration: 220,
+            useNativeDriver: false, // maxHeight requires JS driver
+          }),
+        ]).start();
+      }
+    }
   };
 
   const handleMealScroll = (event: any) => {
@@ -272,12 +294,10 @@ export default function HomeScreen() {
       />
 
       {/* ─── Premium Header ─── */}
-      <View
+      <LinearGradient
+        colors={isDark ? [colors.card, colors.headerBg] : [colors.headerBg, '#2D6A4F']}
         style={[
           s.headerBlock,
-          {
-            backgroundColor: isDark ? colors.card : colors.headerBg,
-          },
           isScrolled && {
             shadowColor: colors.shadow,
             shadowOffset: { width: 0, height: 6 },
@@ -286,6 +306,8 @@ export default function HomeScreen() {
             elevation: 6,
           }
         ]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
       >
         <View style={{ width: '100%', maxWidth: 900, alignSelf: 'center' }}>
           <View style={s.headerTop}>
@@ -343,13 +365,18 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Gold accent line */}
-        <View style={[s.headerGoldLine, { backgroundColor: colors.gold }]} />
-
-        {/* Stats on Mobile */}
-        {!isDesktop && renderStatsRow(true)}
+        {/* Gold accent line + Stats - fade/slide out when scrolled (web only) */}
+        <Animated.View style={{
+          opacity: statsOpacity,
+          transform: [{ translateY: statsOpacity.interpolate({ inputRange: [0, 1], outputRange: [-8, 0] }) }],
+          overflow: 'hidden',
+          maxHeight: statsHeight,
+        }}>
+          <View style={[s.headerGoldLine, { backgroundColor: colors.gold }]} />
+          {!isDesktop && renderStatsRow(true)}
+        </Animated.View>
         </View>
-      </View>
+      </LinearGradient>
 
       {/* ─── Body ─── */}
       <Animated.View
@@ -530,9 +557,13 @@ export default function HomeScreen() {
 
           {/* Quick Actions */}
           <View style={s.actionSection}>
-            <Text style={[s.sectionTitle, { color: colors.text }]}>{t('quick_actions')}</Text>
+            <View style={s.sectionHeaderRow}>
+              <View style={[s.sectionAccent, { backgroundColor: colors.gold }]} />
+              <Text style={[s.sectionTitle, { color: colors.text }]}>{t('quick_actions')}</Text>
+            </View>
+            <Text style={[s.sectionSubtitle, { color: colors.textMuted }]}>Your personalized Ayurvedic toolkit</Text>
           </View>
-          <View style={s.actionGrid}>
+          <View style={[s.actionGrid, isDesktop && { gap: 12 }]}>
             {actions.map((a: any, i) => (
               <TouchableOpacity
                 key={i}
@@ -541,27 +572,28 @@ export default function HomeScreen() {
                   {
                     backgroundColor: colors.card,
                     borderColor: colors.cardBorder,
+                    width: isDesktop ? '31%' : '47.5%',
                   },
                   a.disabled && { opacity: 0.55 }
                 ]}
-                activeOpacity={a.disabled ? 1 : 0.7}
+                activeOpacity={a.disabled ? 1 : 0.72}
                 onPress={() => {
                   if (a.disabled) return;
                   if (a.route) router.push(a.route as any);
                 }}
               >
                 <View style={s.gridTopRow}>
-                  <View style={[s.gridIconBox, { backgroundColor: a.disabled ? colors.divider : a.bg }]}>
-                    <Text style={{ fontSize: 22, opacity: a.disabled ? 0.3 : 1 }}>{a.icon}</Text>
+                  <View style={[s.gridIconBox, { backgroundColor: a.disabled ? colors.divider : a.bg, borderColor: a.disabled ? 'transparent' : a.border, borderWidth: 1 }]}>
+                    <Text style={{ fontSize: 24, opacity: a.disabled ? 0.3 : 1 }}>{a.icon}</Text>
                     {a.disabled && (
                       <View style={s.lockIconWrap}>
-                        <Ionicons name="lock-closed" size={12} color="#fff" />
+                        <Ionicons name="lock-closed" size={10} color="#fff" />
                       </View>
                     )}
                   </View>
                   {!a.disabled && (
                     <View style={[s.gridArrow, { backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)' }]}>
-                      <Ionicons name="chevron-forward" size={14} color={colors.textMuted} />
+                      <Ionicons name="chevron-forward" size={13} color={colors.textMuted} />
                     </View>
                   )}
                 </View>
@@ -575,25 +607,33 @@ export default function HomeScreen() {
             ))}
           </View>
 
-          {/* Tip Card */}
+          {/* Tip Card — Premium */}
           <View
             style={[
               s.tipCard,
-              { backgroundColor: colors.tipBg, borderColor: colors.tipBorder },
+              { backgroundColor: isDark ? 'rgba(212,162,78,0.08)' : '#FFFBEB', borderColor: isDark ? 'rgba(212,162,78,0.2)' : '#FEF3C7' },
             ]}
           >
             <View style={s.tipHeader}>
-              <View style={[s.tipIconWrap, { backgroundColor: isDark ? 'rgba(253,224,71,0.08)' : 'rgba(245,158,11,0.06)' }]}>
-                <Text style={{ fontSize: 16 }}>💡</Text>
+              <LinearGradient
+                colors={isDark ? ['rgba(212,162,78,0.2)', 'rgba(212,162,78,0.1)'] : ['#FEF3C7', '#FDE68A']}
+                style={s.tipIconWrap}
+              >
+                <Text style={{ fontSize: 18 }}>💡</Text>
+              </LinearGradient>
+              <View style={{ flex: 1 }}>
+                <Text style={[s.tipLabel, { color: colors.gold, letterSpacing: 2 }]}>
+                  {t('ayurvedic_tip')}
+                </Text>
+                <Text style={[{ fontSize: 11, color: colors.textMuted, marginTop: 1 }]}>Daily Wisdom</Text>
               </View>
-              <Text style={[s.tipLabel, { color: colors.tipLabel }]}>
-                {t('ayurvedic_tip')}
-              </Text>
             </View>
-            <Text style={[s.tipBody, { color: colors.tipText }]}>
+            <Text style={[s.tipBody, { color: isDark ? 'rgba(253,248,240,0.75)' : '#92400E' }]}>
               Start your day with warm water and lemon to balance your digestive
               fire (Agni) and boost metabolism naturally.
             </Text>
+            <View style={[s.tipDivider, { backgroundColor: isDark ? 'rgba(212,162,78,0.15)' : '#FEF3C7' }]} />
+            <Text style={[s.tipFooter, { color: colors.gold }]}>🌿 Ancient Ayurvedic Wisdom</Text>
           </View>
         </ScrollView>
       </Animated.View>
@@ -644,79 +684,80 @@ const s = StyleSheet.create({
   /* ─── Header ─── */
   headerBlock: {
     paddingTop: SAFE_TOP_PADDING,
-    paddingHorizontal: 22,
-    paddingBottom: 12,
-    borderBottomLeftRadius: 28,
-    borderBottomRightRadius: 28,
+    paddingHorizontal: 20,
+    paddingBottom: 16,
   },
-  headerTop: { flexDirection: "row", alignItems: "center", marginBottom: 18 },
-  greeting: { fontSize: 13, fontWeight: "600", letterSpacing: 0.3 },
-  name: { fontSize: 28, fontWeight: "900", marginTop: 2, letterSpacing: -0.5 },
-  headerGoldLine: { height: 3, borderRadius: 2, marginBottom: 16, opacity: 0.3 },
+  headerTop: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
+  greeting: { fontSize: 12, fontWeight: "600", letterSpacing: 1, textTransform: "uppercase", opacity: 0.6 },
+  name: { fontSize: 26, fontWeight: "900", marginTop: 3, letterSpacing: -0.5 },
+  headerGoldLine: { height: 2, borderRadius: 1, marginBottom: 14, opacity: 0.25 },
 
   /* Avatar */
   avatarWrap: { position: "relative" },
   avatarGlow: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     borderWidth: 2,
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
   },
-  avatarImg: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-  },
+  avatarImg: { width: 42, height: 42, borderRadius: 21 },
   avatarFallback: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
     alignItems: "center",
     justifyContent: "center",
   },
   avatarFallbackText: { fontSize: 15, fontWeight: "800", letterSpacing: 1 },
   onlineDot: {
     position: "absolute",
-    bottom: 0,
-    right: 0,
-    width: 13,
-    height: 13,
-    borderRadius: 7,
+    bottom: 1,
+    right: 1,
+    width: 11,
+    height: 11,
+    borderRadius: 6,
     borderWidth: 2,
   },
 
   /* Stats */
-  statsRow: { flexDirection: "row" },
+  statsRow: { flexDirection: "row", marginBottom: 4, gap: 8 },
   statCard: {
     flex: 1,
-    borderRadius: 18,
-    paddingVertical: 14,
+    borderRadius: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 6,
     alignItems: "center",
     borderWidth: 1,
-    marginRight: 8,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 2,
   },
   statIconWrap: {
-    width: 34,
-    height: 34,
-    borderRadius: 12,
+    width: 32,
+    height: 32,
+    borderRadius: 10,
     alignItems: "center" as any,
     justifyContent: "center" as any,
     marginBottom: 6,
   },
-  statValue: { fontSize: 17, fontWeight: "900", marginTop: 2 },
-  statLabel: { fontSize: 9, fontWeight: "800", letterSpacing: 1.2, marginTop: 3 },
+  statValue: { fontSize: 14, fontWeight: "900", marginTop: 1 },
+  statLabel: { fontSize: 8, fontWeight: "800", letterSpacing: 1.5, marginTop: 3, opacity: 0.55 },
 
   /* ─── Body ─── */
-  body: { paddingHorizontal: 20, paddingTop: 22, paddingBottom: 160 },
+  body: { paddingHorizontal: 18, paddingTop: 20, paddingBottom: 160 },
+  sectionHeaderRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 4 },
+  sectionAccent: { width: 3, height: 22, borderRadius: 2 },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: "900",
-    letterSpacing: -0.3,
+    letterSpacing: -0.4,
     marginBottom: 4,
   },
+  sectionSubtitle: { fontSize: 12, fontWeight: '500', marginBottom: 12, opacity: 0.8 },
 
   /* Journey / Nutrition Progress */
   compactCalories: { flexDirection: "row", alignItems: "center", marginTop: 4, gap: 8 },
@@ -758,39 +799,38 @@ const s = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     width: "100%",
-    justifyContent: "flex-start",
+    gap: 10,
     marginBottom: 14,
   },
   gridCard: {
-    width: "47%",
-    margin: "1.5%",
+    width: "47.5%",
     borderRadius: 20,
     padding: 16,
     borderWidth: 1,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    elevation: 3,
   },
   gridTopRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 12,
+    marginBottom: 14,
   },
   gridIconBox: {
-    width: 46,
-    height: 46,
+    width: 44,
+    height: 44,
     borderRadius: 14,
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
   },
   gridArrow: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
     alignItems: "center" as any,
     justifyContent: "center" as any,
   },
@@ -798,43 +838,43 @@ const s = StyleSheet.create({
     position: "absolute",
     right: -4,
     top: -4,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    backgroundColor: "rgba(0,0,0,0.45)",
+    width: 18,
+    height: 18,
+    borderRadius: 9,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1.5,
-    borderColor: "#fff",
+    borderColor: "rgba(255,255,255,0.5)",
   },
-  gridTitle: { fontSize: 14, fontWeight: "800", marginBottom: 4 },
-  gridDesc: { fontSize: 11, lineHeight: 16 },
+  gridTitle: { fontSize: 14, fontWeight: "800", marginBottom: 4, letterSpacing: -0.1 },
+  gridDesc: { fontSize: 11, lineHeight: 16, opacity: 0.7 },
 
   /* Meal Plan Dashboard */
   mealPlanSection: { marginBottom: 24, marginTop: 6 },
-  sectionHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 16 },
+  sectionHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 14 },
   viewAllBtn: {
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 14,
+    borderRadius: 20,
     borderWidth: 1,
   },
   viewAll: { fontSize: 12, fontWeight: "700" },
   mealScroll: { paddingBottom: 10, paddingLeft: 2 },
   mealCard: {
-    width: 280,
-    height: 300,
-    borderRadius: 24,
+    width: 270,
+    height: 290,
+    borderRadius: 22,
     marginRight: 12,
     borderWidth: 1,
-    elevation: 4,
+    elevation: 6,
     padding: 10,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.14,
+    shadowRadius: 20,
   },
   mealBadgeRow: {
     flexDirection: "row",
@@ -896,23 +936,25 @@ const s = StyleSheet.create({
 
   /* Tip */
   tipCard: {
-    borderRadius: 20,
-    padding: 20,
+    borderRadius: 22,
+    padding: 18,
     marginTop: 8,
-    borderWidth: 1,
+    borderWidth: 1.5,
   },
-  tipHeader: { flexDirection: "row", alignItems: "center", marginBottom: 12, gap: 10 },
+  tipHeader: { flexDirection: "row", alignItems: "center", marginBottom: 12, gap: 12 },
   tipIconWrap: {
-    width: 36,
-    height: 36,
+    width: 40,
+    height: 40,
     borderRadius: 12,
     alignItems: "center" as any,
     justifyContent: "center" as any,
   },
   tipLabel: {
-    fontSize: 11,
-    fontWeight: "800",
+    fontSize: 10,
+    fontWeight: "900",
     letterSpacing: 2,
   },
   tipBody: { fontSize: 14, lineHeight: 22, fontWeight: "500" },
+  tipDivider: { height: 1, marginVertical: 12 },
+  tipFooter: { fontSize: 11, fontWeight: "700", letterSpacing: 0.5 },
 });

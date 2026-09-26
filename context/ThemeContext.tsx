@@ -124,14 +124,14 @@ export const LightColors = {
 export const DarkColors: typeof LightColors = {
     // Core brand
     green: "#34D399", // Brighter, glowing emerald for accents
-    gold: "#FDE047",  // Premium vibrant gold
-    cream: "#F3F4F6",
+    gold: "#F0C040",  // Warm premium gold (less neon)
+    cream: "#F1F5F9",
 
     // Backgrounds — Deep, OLED-friendly green-tinted black
-    background: "#090E0B",
-    surface: "#111A14",     // Elevated card
-    card: "#16221A",        // Slightly higher elevation
-    headerBg: "#0B120E",    // Like background but distinct
+    background: "#070D09",
+    surface: "#0F1A12",     // Elevated card
+    card: "#14201A",        // Slightly higher elevation
+    headerBg: "#0A1310",    // Like background but distinct
 
     // Text — High contrast for readability
     text: "#F8FAFC",
@@ -163,19 +163,19 @@ export const DarkColors: typeof LightColors = {
     statusBarBg: "#090E0B",
 
     // Tab bar — Elevated look, OLED friendly
-    tabBarBg: "#0B120E",
-    tabBarActive: "#FDE047",
-    tabBarInactive: "#FFFFFF",
+    tabBarBg: "#0A1310",
+    tabBarActive: "#F0C040",
+    tabBarInactive: "rgba(255,255,255,0.45)",
 
     // Navigation bar (Android)
     navBarBg: "transparent",
     navBarStyle: "light-content" as BarStyle,
 
     // Accent surfaces (Translucent approach)
-    tipBg: "rgba(253, 224, 71, 0.08)",   // Gold tint
-    tipBorder: "rgba(253, 224, 71, 0.15)",
-    tipText: "#FDE047",
-    tipLabel: "#FEF08A",
+    tipBg: "rgba(240, 192, 64, 0.08)",   // Warm gold tint
+    tipBorder: "rgba(240, 192, 64, 0.18)",
+    tipText: "#F0C040",
+    tipLabel: "#F5D27A",
 
     successBg: "rgba(16, 185, 129, 0.08)", // Emerald tint
     successBorder: "rgba(16, 185, 129, 0.15)",
@@ -187,14 +187,14 @@ export const DarkColors: typeof LightColors = {
 
     // Misc
     shadow: "#000",
-    overlay: "rgba(0,0,0,0.6)",
+    overlay: "rgba(0,0,0,0.65)",
     headerOverlay: "rgba(255,255,255,0.04)",
-    headerBorder: "rgba(255,255,255,0.05)",
-    avatarBg: "rgba(255,255,255,0.1)",
-    avatarBorder: "rgba(253, 224, 71, 0.3)",
-    iconBoxBg: "#111A14",
-    arrowBg: "#111A14",
-    switchTrackOff: "#334155",
+    headerBorder: "rgba(255,255,255,0.06)",
+    avatarBg: "rgba(255,255,255,0.08)",
+    avatarBorder: "rgba(240,192,64,0.35)",
+    iconBoxBg: "#0F1A12",
+    arrowBg: "#0F1A12",
+    switchTrackOff: "#1E2D24",
     switchTrackOn: "#10B981",
 
     // Action card icons (Premium dark mode translucent)
@@ -269,7 +269,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
     const colors = isDark ? DarkColors : LightColors;
 
-    const toggleTheme = () => setThemeMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    const toggleTheme = () => setThemeMode((prev) => {
+        if (prev === 'system') return 'light';
+        if (prev === 'light') return 'dark';
+        return 'system';
+    });
     const setDark = (value: boolean) => setThemeMode(value ? 'dark' : 'light');
 
     return (

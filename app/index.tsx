@@ -19,25 +19,12 @@ import {
 } from "react-native";
 
 const FEATURES = [
-  { icon: "scan-outline" as const, title: "Smart Food Scanner", desc: "Point your camera at any food or label. Our AI instantly reads ingredients and scores them against your unique Dosha profile.", color: "#10B981", bg: "rgba(16,185,129,0.1)" },
-  { icon: "calendar-outline" as const, title: "AI Meal Plans", desc: "A full 7-day personalized meal plan, built on-device with our local Neural Engine. Zero cloud dependency, maximum privacy.", color: "#D4A24E", bg: "rgba(212,162,78,0.1)" },
-  { icon: "water-outline" as const, title: "Dosha Analysis", desc: "Our comprehensive Prakriti quiz pinpoints your Vata, Pitta & Kapha balance so every recommendation is truly yours.", color: "#818CF8", bg: "rgba(129,140,248,0.1)" },
-  { icon: "leaf-outline" as const, title: "Ayurvedic Recipes", desc: "Browse hundreds of science-backed recipes tailored to your constitution, season, and current health goals.", color: "#F59E0B", bg: "rgba(245,158,11,0.1)" },
-  { icon: "shield-checkmark-outline" as const, title: "100% Private", desc: "All AI inference happens locally on your device. Your health data never leaves your hands.", color: "#34D399", bg: "rgba(52,211,153,0.1)" },
-  { icon: "sparkles-outline" as const, title: "Hybrid AI Engine", desc: "Combines a local Neural Engine with optional Groq cloud models for an unmatched speed-accuracy balance.", color: "#F472B6", bg: "rgba(244,114,182,0.1)" },
-];
-
-const STATS = [
-  { value: "50K+", label: "Users" },
-  { value: "1.2M", label: "Meals Planned" },
-  { value: "98%", label: "Satisfaction" },
-  { value: "<50ms", label: "AI Response" },
-];
-
-const TESTIMONIALS = [
-  { name: "Priya S.", role: "Yoga Instructor", text: "AyurNutri transformed how I eat. The Dosha analysis was spot-on and the meal plans feel like they were made just for me.", avatar: "??" },
-  { name: "Rahul M.", role: "Software Engineer", text: "I love that my data never leaves my phone. The AI is insanely fast and the scanner is something I use every single day.", avatar: "??" },
-  { name: "Dr. Ananya K.", role: "Ayurvedic Practitioner", text: "Finally an app that gets Ayurveda right. The science is solid and the recommendations align perfectly with traditional texts.", avatar: "??" },
+  { icon: "scan-outline" as const, title: "Smart Food Scanner", desc: "Point your camera at any food. Our AI instantly analyzes its nutritional value and Dosha compatibility.", color: "#10B981", bg: "rgba(16,185,129,0.1)" },
+  { icon: "calendar-outline" as const, title: "AI Meal Plans", desc: "Get personalized meal recommendations tailored to your unique Dosha and health goals.", color: "#D4A24E", bg: "rgba(212,162,78,0.1)" },
+  { icon: "water-outline" as const, title: "Dosha Analysis", desc: "Take our comprehensive assessment to discover your Vata, Pitta, and Kapha constitution.", color: "#818CF8", bg: "rgba(129,140,248,0.1)" },
+  { icon: "leaf-outline" as const, title: "Ayurvedic Recipes", desc: "Browse delicious, healthy recipes specifically suited to balance your body's natural state.", color: "#F59E0B", bg: "rgba(245,158,11,0.1)" },
+  { icon: "medkit-outline" as const, title: "Expert Dietitians", desc: "Connect directly with verified BAMS practitioners for personalized Ayurvedic guidance.", color: "#34D399", bg: "rgba(52,211,153,0.1)" },
+  { icon: "sparkles-outline" as const, title: "AI Assistant", desc: "Chat with our intelligent assistant for instant Ayurvedic insights and lifestyle recommendations.", color: "#F472B6", bg: "rgba(244,114,182,0.1)" },
 ];
 
 const CREAM = "#FDF8F0";
@@ -95,7 +82,6 @@ export default function LandingPage() {
       Animated.timing(navAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
       Animated.timing(heroTextAnim, { toValue: 1, duration: 600, useNativeDriver: true }),
       Animated.timing(heroImgAnim, { toValue: 1, duration: 600, useNativeDriver: true }),
-      Animated.timing(statsAnim, { toValue: 1, duration: 600, useNativeDriver: true }),
       Animated.timing(featuresAnim, { toValue: 1, duration: 600, useNativeDriver: true }),
     ]).start();
 
@@ -151,9 +137,7 @@ export default function LandingPage() {
             </View>
             {isDesktop && (
               <View style={s.navLinks}>
-                {["Features", "How It Works", "Testimonials"].map((l) => (
-                  <Text key={l} style={s.navLink}>{l}</Text>
-                ))}
+                <Text style={s.navLink}>Features</Text>
               </View>
             )}
             <View style={s.navActions}>
@@ -174,14 +158,14 @@ export default function LandingPage() {
           <Animated.View style={[s.heroText, isDesktop && s.heroTextDesktop, slideIn(heroTextAnim)]}>
             <View style={s.badge}>
               <View style={s.badgeDot} />
-              <Text style={s.badgeLabel}>Hybrid AI Engine Now Live</Text>
+              <Text style={s.badgeLabel}>Discover Your Ayurvedic Balance</Text>
             </View>
             <Text style={[s.heroTitle, isDesktop && s.heroTitleDesktop]}>
               {"Your Body's\nWisdom,\n"}
               <Text style={s.heroTitleAccent}>Decoded by AI.</Text>
             </Text>
             <Text style={[s.heroSub, isDesktop && s.heroSubDesktop]}>
-              AyurNutri merges 5,000-year-old Ayurvedic science with a private, on-device Neural Engine to build hyper-personalized nutrition that fits your Dosha.
+              AyurNutri merges ancient Ayurvedic wisdom with modern AI to provide hyper-personalized nutrition and wellness guidance.
             </Text>
             <View style={[s.heroBtns, !isDesktop && s.heroBtnsMobile]}>
               <TouchableOpacity style={s.primaryBtn} onPress={() => router.push("/signup")} activeOpacity={0.85}>
@@ -194,14 +178,14 @@ export default function LandingPage() {
               </TouchableOpacity>
             </View>
             <View style={s.trustRow}>
-              <Ionicons name="shield-checkmark" size={14} color="#10B981" />
-              <Text style={s.trustText}>No card required</Text>
-              <Text style={s.trustSep}>·</Text>
-              <Ionicons name="lock-closed" size={14} color="#10B981" />
-              <Text style={s.trustText}>100% Private AI</Text>
-              <Text style={s.trustSep}>·</Text>
-              <Ionicons name="phone-portrait" size={14} color="#10B981" />
-              <Text style={s.trustText}>Works Offline</Text>
+              <Ionicons name="leaf" size={14} color="#10B981" />
+              <Text style={s.trustText}>Personalized Nutrition</Text>
+              <Text style={s.trustSep}>ï¿½</Text>
+              <Ionicons name="medkit" size={14} color="#10B981" />
+              <Text style={s.trustText}>Verified Experts</Text>
+              <Text style={s.trustSep}>ï¿½</Text>
+              <Ionicons name="sparkles" size={14} color="#10B981" />
+              <Text style={s.trustText}>AI Assistant</Text>
             </View>
           </Animated.View>
 
@@ -225,49 +209,16 @@ export default function LandingPage() {
           </Animated.View>
         </View>
 
-        {/* STATS */}
-        <Animated.View style={[s.statsBar, isDesktop && s.statsBarDesktop, slideIn(statsAnim)]}>
-          {STATS.map((st, i) => (
-            <View key={i} style={[s.statItem, i < STATS.length - 1 && isDesktop && s.statBorder]}>
-              <Text style={s.statValue}>{st.value}</Text>
-              <Text style={s.statLabel}>{st.label}</Text>
-            </View>
-          ))}
-        </Animated.View>
-
         {/* FEATURES */}
         <Animated.View style={[s.section, slideIn(featuresAnim)]}>
           <View style={s.sectionHead}>
             <Text style={s.sectionEyebrow}>WHY AYURNUTRI</Text>
             <Text style={[s.sectionTitle, isDesktop && s.sectionTitleDesktop]}>{"Everything You Need to\nThrive from Within"}</Text>
-            <Text style={s.sectionSub}>Built for people who believe health is personal — not one-size-fits-all.</Text>
+            <Text style={s.sectionSub}>Built for people who believe health is personal â€¢ not one-size-fits-all.</Text>
           </View>
           <View style={[s.featuresGrid, isDesktop && s.featuresGridDesktop]}>
             {FEATURES.map((f, i) => (
               <FeatureCard key={i} feature={f} isDesktop={isDesktop} />
-            ))}
-          </View>
-        </Animated.View>
-
-        {/* TESTIMONIALS */}
-        <Animated.View style={[s.section, slideIn(featuresAnim)]}>
-          <View style={s.sectionHead}>
-            <Text style={s.sectionEyebrow}>TESTIMONIALS</Text>
-            <Text style={[s.sectionTitle, isDesktop && s.sectionTitleDesktop]}>Loved by Thousands</Text>
-          </View>
-          <View style={[s.testimonialsGrid, isDesktop && s.testimonialsGridDesktop]}>
-            {TESTIMONIALS.map((t, i) => (
-              <View key={i} style={[s.testimonialCard, isDesktop && s.testimonialCardDesktop]}>
-                <Text style={s.quoteIcon}>"</Text>
-                <Text style={s.testimonialText}>{t.text}</Text>
-                <View style={s.testimonialAuthor}>
-                  <Text style={s.testimonialAvatar}>{t.avatar}</Text>
-                  <View>
-                    <Text style={s.testimonialName}>{t.name}</Text>
-                    <Text style={s.testimonialRole}>{t.role}</Text>
-                  </View>
-                </View>
-              </View>
             ))}
           </View>
         </Animated.View>
@@ -281,7 +232,7 @@ export default function LandingPage() {
             end={{ x: 1, y: 1 }}
           />
           <Text style={[s.ctaTitle, isDesktop && s.ctaTitleDesktop]}>Ready to Know Your Body?</Text>
-          <Text style={s.ctaSub}>Join 50,000+ people already living their best Ayurvedic life.</Text>
+          <Text style={s.ctaSub}>Join AyurNutri and start your personalized wellness journey today.</Text>
           <TouchableOpacity style={s.ctaBtn} onPress={() => router.push("/signup")} activeOpacity={0.85}>
             <Text style={s.ctaBtnText}>Create Free Account</Text>
             <Ionicons name="arrow-forward" size={16} color="#1B4332" style={{ marginLeft: 8 }} />
@@ -294,7 +245,7 @@ export default function LandingPage() {
             <Image source={require("../assets/images/logo.png")} style={s.footerLogo} resizeMode="contain" />
             <Text style={s.footerBrandText}>AyurNutri</Text>
           </View>
-          <Text style={s.footerCopy}>© 2026 AyurNutri. All rights reserved. Powered by Hybrid AI.</Text>
+          <Text style={s.footerCopy}>Â© 2026 AyurNutri. All rights reserved.</Text>
           {isDesktop && (
             <View style={s.footerLinks}>
               {["Privacy", "Terms", "Contact"].map((l) => (
@@ -310,9 +261,9 @@ export default function LandingPage() {
 }
 
 const s = StyleSheet.create({
-  root: { flex: 1, backgroundColor: "#050E07" },
+  root: { flex: 1, backgroundColor: "#050E07", overflow: "hidden" },
   center: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#050E07" },
-  scroll: { paddingBottom: 0 },
+  scroll: { paddingBottom: 0, backgroundColor: "#050E07", overflow: "hidden" },
 
   glow: { position: "absolute", height: 400, opacity: 0.12, borderRadius: 999, filter: "blur(100px)" as any },
 
@@ -371,12 +322,6 @@ const s = StyleSheet.create({
   floatCardTopRight: { top: 10, right: -50 },
   floatCardBottomRight: { bottom: 30, right: -40 },
 
-  statsBar: { flexDirection: "column", gap: 24, paddingVertical: 40, paddingHorizontal: 24, marginHorizontal: 20, marginBottom: 20, borderRadius: 24, backgroundColor: "rgba(255,255,255,0.02)", borderWidth: 1, borderColor: BORDER },
-  statsBarDesktop: { flexDirection: "row", justifyContent: "space-around", maxWidth: 1100, alignSelf: "center", width: "90%", paddingVertical: 36 },
-  statItem: { alignItems: "center" },
-  statBorder: { borderRightWidth: 1, borderRightColor: BORDER, paddingRight: 40, marginRight: 20 },
-  statValue: { fontSize: 36, fontWeight: "900", color: GOLD, letterSpacing: -1 },
-  statLabel: { fontSize: 13, color: MUTED, fontWeight: "600", marginTop: 4, letterSpacing: 0.5 },
 
   section: { width: "100%", maxWidth: 1200, alignSelf: "center", paddingHorizontal: 24, paddingVertical: 60 },
   sectionHead: { alignItems: "center", marginBottom: 56 },
@@ -394,17 +339,6 @@ const s = StyleSheet.create({
   featureTitle: { fontSize: 18, fontWeight: "700", color: CREAM, marginBottom: 10 },
   featureDesc: { fontSize: 14, color: MUTED, lineHeight: 22 },
 
-  testimonialsGrid: { flexDirection: "column", gap: 16 },
-  testimonialsGridDesktop: { flexDirection: "row", gap: 20 },
-  testimonialCard: { backgroundColor: "rgba(255,255,255,0.02)", borderWidth: 1, borderColor: BORDER, borderRadius: 24, padding: 28 },
-  testimonialCardDesktop: { flex: 1 },
-  quoteIcon: { fontSize: 48, color: GOLD, lineHeight: 40, marginBottom: 12, opacity: 0.6 },
-  testimonialText: { color: MUTED, fontSize: 15, lineHeight: 24, marginBottom: 20, fontStyle: "italic" },
-  testimonialAuthor: { flexDirection: "row", alignItems: "center", gap: 12 },
-  testimonialAvatar: { fontSize: 28 },
-  testimonialName: { color: CREAM, fontSize: 15, fontWeight: "700" },
-  testimonialRole: { color: MUTED, fontSize: 12, fontWeight: "500", marginTop: 2 },
-
   ctaBanner: { margin: 24, borderRadius: 28, padding: 48, alignItems: "center", overflow: "hidden", borderWidth: 1, borderColor: "rgba(212,162,78,0.2)" },
   ctaBannerDesktop: { marginHorizontal: 40, padding: 72 },
   ctaTitle: { fontSize: 28, fontWeight: "900", color: CREAM, textAlign: "center", marginBottom: 12, letterSpacing: -0.5 },
@@ -413,7 +347,7 @@ const s = StyleSheet.create({
   ctaBtn: { flexDirection: "row", alignItems: "center", backgroundColor: GOLD, paddingVertical: 16, paddingHorizontal: 36, borderRadius: 32, shadowColor: GOLD, shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.4, shadowRadius: 20, elevation: 10 },
   ctaBtnText: { color: GREEN, fontSize: 16, fontWeight: "800" },
 
-  footer: { paddingVertical: 36, paddingHorizontal: 24, borderTopWidth: 1, borderTopColor: BORDER, alignItems: "center", gap: 12 },
+  footer: { paddingVertical: 36, paddingHorizontal: 24, paddingBottom: 60, borderTopWidth: 1, borderTopColor: BORDER, alignItems: "center", gap: 12, backgroundColor: "#050E07" },
   footerDesktop: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", maxWidth: 1200, alignSelf: "center", width: "100%", paddingHorizontal: 40 },
   footerBrand: { flexDirection: "row", alignItems: "center", gap: 8 },
   footerLogo: { width: 24, height: 24 },
@@ -422,3 +356,5 @@ const s = StyleSheet.create({
   footerLinks: { flexDirection: "row", gap: 24 },
   footerLink: { color: MUTED, fontSize: 13, fontWeight: "600" },
 });
+
+

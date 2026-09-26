@@ -6,4 +6,6 @@ import { Platform, StatusBar } from "react-native";
  * On iOS, uses a fixed value (safe area is handled differently).
  */
 export const SAFE_TOP_PADDING =
-  Platform.OS === "android" ? (StatusBar.currentHeight || 24) + 16 : 58;
+  Platform.OS === "android" ? (StatusBar.currentHeight || 24) + 16
+  : Platform.OS === "web" ? 12
+  : 58;

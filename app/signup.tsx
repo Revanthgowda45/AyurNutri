@@ -90,7 +90,7 @@ export default function SignupScreen() {
                     </View>
                 )}
                 <Text style={s.formTitle}>Create Account</Text>
-                <Text style={s.formSub}>Join thousands on their Ayurvedic wellness path</Text>
+                <Text style={s.formSub}>Start your personalized Ayurvedic wellness path</Text>
             </View>
 
             {error ? (
@@ -249,9 +249,9 @@ export default function SignupScreen() {
                                 <Text style={s.panelBrandText}>AyurNutri</Text>
                             </View>
                             <Text style={s.panelHeadline}>{"Start Your\nWellness Journey\nToday."}</Text>
-                            <Text style={s.panelSub}>Your free account unlocks personalized Ayurvedic diet plans, smart food scanning, and private on-device AI.</Text>
+                            <Text style={s.panelSub}>Your free account unlocks personalized Ayurvedic diet plans, smart food scanning, and AI-powered insights.</Text>
                             <View style={s.featureList}>
-                                {["Free forever — no credit card needed", "Dosha analysis in under 5 minutes", "Offline AI — your data stays private"].map((f, i) => (
+                                {["Free forever — no credit card needed", "Dosha analysis in under 5 minutes", "Personalized Ayurvedic recipes"].map((f, i) => (
                                     <View key={i} style={s.featureItem}>
                                         <Ionicons name="checkmark-circle" size={18} color={GOLD} />
                                         <Text style={s.featureText}>{f}</Text>
@@ -299,57 +299,57 @@ export default function SignupScreen() {
 }
 
 const s = StyleSheet.create({
-    root: { flex: 1, backgroundColor: "#050E07" },
-    glow: { position: "absolute", width: 300, height: 300, borderRadius: 150, opacity: 0.12, filter: "blur(80px)" as any },
+    root: { flex: 1, backgroundColor: "#050E07", overflow: "hidden" },
+    glow: { position: "absolute", width: 320, height: 320, borderRadius: 160, opacity: 0.1, filter: "blur(80px)" as any },
 
     desktopLayout: { flex: 1, flexDirection: "row" },
-    leftPanel: { width: "42%", flexDirection: "column", paddingHorizontal: 60, paddingTop: 40, paddingBottom: 48, overflow: "hidden" },
+    leftPanel: { width: "45%", flexDirection: "column", paddingHorizontal: 64, paddingTop: 40, paddingBottom: 48, overflow: "hidden" },
     leftContent: { zIndex: 1, flex: 1, justifyContent: "center" },
-    brandRow: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 48 },
-    panelLogo: { width: 44, height: 44 },
-    panelBrandText: { fontSize: 24, fontWeight: "900", color: CREAM, letterSpacing: 0.5 },
-    panelHeadline: { fontSize: 38, fontWeight: "900", color: CREAM, lineHeight: 48, letterSpacing: -1, marginBottom: 20 },
-    panelSub: { fontSize: 15, color: MUTED, lineHeight: 25, marginBottom: 36 },
-    featureList: { gap: 14 },
-    featureItem: { flexDirection: "row", alignItems: "center", gap: 12 },
-    featureText: { color: "rgba(253,248,240,0.75)", fontSize: 15, fontWeight: "500" },
+    brandRow: { flexDirection: "row", alignItems: "center", gap: 12, marginBottom: 52 },
+    panelLogo: { width: 40, height: 40, borderRadius: 10 },
+    panelBrandText: { fontSize: 22, fontWeight: "900", color: CREAM, letterSpacing: 0.3 },
+    panelHeadline: { fontSize: 44, fontWeight: "900", color: CREAM, lineHeight: 54, letterSpacing: -1.5, marginBottom: 18 },
+    panelSub: { fontSize: 16, color: MUTED, lineHeight: 27, marginBottom: 44 },
+    featureList: { gap: 16 },
+    featureItem: { flexDirection: "row", alignItems: "center", gap: 14 },
+    featureText: { color: "rgba(253,248,240,0.7)", fontSize: 15, fontWeight: "500", lineHeight: 22 },
     rightPanel: { flex: 1, overflow: "hidden" },
     rightScroll: { flexGrow: 1, justifyContent: "center", alignItems: "center", paddingVertical: 48, paddingHorizontal: 20 },
 
-    mobileScroll: { flexGrow: 1, paddingHorizontal: 24, paddingTop: 72, paddingBottom: 200 },
+    mobileScroll: { flexGrow: 1, paddingHorizontal: 26, paddingTop: 70, paddingBottom: 200, backgroundColor: "#050E07", alignItems: "center" },
 
     formWrap: { width: "100%", maxWidth: 420 },
-    formHeader: { marginBottom: 32 },
-    mobileBrand: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 28, justifyContent: "center" },
-    mobileLogo: { width: 40, height: 40 },
-    mobileBrandText: { fontSize: 22, fontWeight: "900", color: CREAM },
-    formTitle: { fontSize: 28, fontWeight: "900", color: CREAM, letterSpacing: -0.5, marginBottom: 8 },
-    formSub: { fontSize: 14, color: MUTED },
+    formHeader: { marginBottom: 36, alignItems: "center" },
+    mobileBrand: { flexDirection: "row", alignItems: "center", gap: 10, marginBottom: 36, justifyContent: "center" },
+    mobileLogo: { width: 38, height: 38, borderRadius: 10 },
+    mobileBrandText: { fontSize: 20, fontWeight: "900", color: CREAM, letterSpacing: 0.2 },
+    formTitle: { fontSize: 32, fontWeight: "900", color: CREAM, letterSpacing: -0.8, marginBottom: 10, textAlign: "center" },
+    formSub: { fontSize: 15, color: MUTED, textAlign: "center", lineHeight: 22 },
 
-    errBox: { flexDirection: "row", alignItems: "center", backgroundColor: "rgba(248,113,113,0.1)", borderWidth: 1, borderColor: "rgba(248,113,113,0.25)", borderRadius: 12, paddingHorizontal: 14, paddingVertical: 12, marginBottom: 20 },
+    errBox: { flexDirection: "row", alignItems: "center", backgroundColor: "rgba(248,113,113,0.08)", borderWidth: 1, borderColor: "rgba(248,113,113,0.2)", borderRadius: 14, paddingHorizontal: 14, paddingVertical: 12, marginBottom: 20, gap: 8 },
     errText: { color: "#F87171", fontSize: 13, fontWeight: "500", flex: 1 },
 
     fieldWrap: { marginBottom: 18 },
-    label: { fontSize: 11, fontWeight: "700", letterSpacing: 1.5, color: "rgba(253,248,240,0.4)", marginBottom: 8 },
-    inputRow: { flexDirection: "row", alignItems: "center", backgroundColor: INPUT_BG, borderWidth: 1, borderColor: BORDER, borderRadius: 14, paddingHorizontal: 16, height: 52 },
-    inputFocused: { borderColor: "rgba(212,162,78,0.6)", backgroundColor: "rgba(212,162,78,0.05)" },
+    label: { fontSize: 10, fontWeight: "700", letterSpacing: 1.8, color: "rgba(253,248,240,0.35)", marginBottom: 8, textTransform: "uppercase" },
+    inputRow: { flexDirection: "row", alignItems: "center", backgroundColor: INPUT_BG, borderWidth: 1, borderColor: BORDER, borderRadius: 16, paddingHorizontal: 16, height: 56 },
+    inputFocused: { borderColor: `${GOLD}70`, backgroundColor: `${GOLD}06` },
     input: { flex: 1, fontSize: 15, color: CREAM },
 
     strengthRow: { flexDirection: "row", alignItems: "center", marginTop: 8, gap: 10 },
-    strengthBars: { flexDirection: "row", gap: 4, flex: 1 },
-    strengthBar: { flex: 1, height: 3, borderRadius: 2 },
-    strengthLabel: { fontSize: 11, fontWeight: "700", width: 40, textAlign: "right" },
+    strengthBars: { flexDirection: "row", gap: 6, flex: 1 },
+    strengthBar: { flex: 1, height: 4, borderRadius: 2 },
+    strengthLabel: { fontSize: 11, fontWeight: "700", width: 40, textAlign: "right", letterSpacing: 0.5 },
 
-    primaryBtn: { flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: GOLD, height: 54, borderRadius: 14, shadowColor: GOLD, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.35, shadowRadius: 16, elevation: 8, marginTop: 8, marginBottom: 24 },
-    primaryBtnText: { color: GREEN, fontSize: 16, fontWeight: "800" },
+    primaryBtn: { flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: GOLD, height: 56, borderRadius: 16, shadowColor: GOLD, shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.4, shadowRadius: 20, elevation: 10, marginTop: 12, marginBottom: 28, gap: 8 },
+    primaryBtnText: { color: GREEN, fontSize: 16, fontWeight: "900", letterSpacing: 0.3 },
 
     switchRow: { flexDirection: "row", justifyContent: "center", alignItems: "center", marginBottom: 24 },
     switchText: { fontSize: 14, color: MUTED },
-    switchLink: { fontSize: 14, color: GOLD, fontWeight: "700" },
+    switchLink: { fontSize: 14, color: GOLD, fontWeight: "800" },
 
-    backWrap: { flexDirection: "row", justifyContent: "center", alignItems: "center" },
-    backText: { fontSize: 13, color: "rgba(253,248,240,0.3)" },
+    backWrap: { flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 6 },
+    backText: { fontSize: 13, color: "rgba(253,248,240,0.25)", fontWeight: "500" },
 
-    leftBackBtn: { flexDirection: "row", alignItems: "center", paddingVertical: 12, zIndex: 1 },
-    leftBackText: { fontSize: 14, color: "rgba(253,248,240,0.5)", fontWeight: "600" },
+    leftBackBtn: { flexDirection: "row", alignItems: "center", gap: 8, paddingVertical: 12, zIndex: 1 },
+    leftBackText: { fontSize: 14, color: "rgba(253,248,240,0.4)", fontWeight: "600" },
 });

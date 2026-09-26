@@ -10,6 +10,7 @@ import { useRouter } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
     ActivityIndicator,
+    Alert,
     Animated,
     FlatList,
     KeyboardAvoidingView,
@@ -293,16 +294,33 @@ export default function ChatBotScreen() {
     [user?.uid, userContext]
   );
 
-  const clearChat = async () => {
-    if (!user?.uid) return;
-    await firestore.clearChatHistory(user.uid);
+  const clearChat = () => {
     const welcomeMsg: Message = {
       id: Date.now().toString(),
       role: "assistant",
       content: getWelcomeMessage(userContext.doshaType),
     };
-    setMessages([welcomeMsg]);
-    await firestore.saveChatMessage(user.uid, welcomeMsg);
+
+    const doReset = async () => {
+      // Clear UI immediately (optimistic update)
+      setMessages([welcomeMsg]);
+      if (!user?.uid) return;
+      try {
+        await firestore.clearChatHistory(user.uid);
+        await firestore.saveChatMessage(user.uid, welcomeMsg);
+      } catch (err) {
+        console.warn("[Chat] Could not clear history from Firestore:", err);
+      }
+    };
+
+    Alert.alert(
+      "Clear Chat",
+      "Are you sure you want to clear all messages?",
+      [
+        { text: "Cancel", style: "cancel" },
+        { text: "Clear", style: "destructive", onPress: doReset },
+      ]
+    );
   };
 
   const renderMessage = ({ item, index }: { item: Message; index: number }) => {

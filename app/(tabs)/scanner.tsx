@@ -296,31 +296,38 @@ export default function ScannerScreen() {
   };
 
   const renderHeader = () => (
-    <View
+    <LinearGradient
+      colors={isDark ? [colors.card, colors.headerBg] : [colors.headerBg, '#2D6A4F']}
       style={[
         s.header,
-        { backgroundColor: isDark ? colors.card : colors.headerBg },
         isScrolled && {
-          shadowColor: colors.shadow,
+          shadowColor: '#000',
           shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.1,
+          shadowOpacity: 0.15,
           shadowRadius: 16,
           elevation: 4,
         },
       ]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
     >
       <View style={s.headerRow}>
         <View style={{ flex: 1 }}>
-          <Text style={[s.headerTitle, { color: colors.textOnHeader }]}>
-            Food Scanner
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 2 }}>
+            <View style={[{ width: 32, height: 32, borderRadius: 10, backgroundColor: 'rgba(255,255,255,0.12)', alignItems: 'center', justifyContent: 'center' }]}>
+              <Text style={{ fontSize: 18 }}>🔍</Text>
+            </View>
+            <Text style={[s.headerTitle, { color: colors.textOnHeader }]}>
+              Food Scanner
+            </Text>
+          </View>
           <Text style={[s.headerSub, { color: colors.textOnHeaderSub }]}>
-            AI-powered Dosha compatibility
+            AI-powered Dosha compatibility analysis
           </Text>
         </View>
         {result && (
           <TouchableOpacity
-            style={[s.regenBtn, { backgroundColor: colors.headerOverlay }]}
+            style={[s.regenBtn, { backgroundColor: 'rgba(255,255,255,0.12)' }]}
             activeOpacity={0.7}
             onPress={handleClear}
             disabled={loading}
@@ -329,7 +336,7 @@ export default function ScannerScreen() {
           </TouchableOpacity>
         )}
       </View>
-    </View>
+    </LinearGradient>
   );
 
   const renderActiveProfileBanner = () => {
@@ -417,30 +424,34 @@ export default function ScannerScreen() {
           {!imageUri ? (
             <>
               <TouchableOpacity
-                style={[s.dropzone, { borderColor: colors.divider, backgroundColor: colors.background }]}
+                style={[s.dropzone, { borderColor: `${colors.gold}30`, backgroundColor: isDark ? colors.surface : '#FAFAFA' }]}
                 onPress={handleCamera}
-                activeOpacity={0.7}
+                activeOpacity={0.8}
               >
-                <View style={[s.iconRing, { backgroundColor: colors.surface }]}>
-                  <Ionicons name="scan" size={36} color={colors.gold} />
-                </View>
+                {/* Animated glow ring */}
+                <LinearGradient
+                  colors={isDark ? ['rgba(212,162,78,0.15)', 'rgba(212,162,78,0.05)'] : ['rgba(212,162,78,0.12)', 'rgba(212,162,78,0.03)']}
+                  style={s.iconRing}
+                >
+                  <Ionicons name="scan" size={38} color={colors.gold} />
+                </LinearGradient>
                 <Text style={[s.dropzoneTitle, { color: colors.text }]}>
                   Tap to Scan Food
                 </Text>
                 <Text style={[s.dropzoneSub, { color: colors.textSecondary }]}>
-                  Identify ingredients & dosha compatibility
+                  AI identifies ingredients & Dosha compatibility
                 </Text>
 
                 <View style={s.heroActions}>
                   <TouchableOpacity
-                    style={[s.heroActionBtn, { backgroundColor: colors.card }]}
+                    style={[s.heroActionBtn, { backgroundColor: colors.card, borderColor: colors.cardBorder, borderWidth: 1 }]}
                     onPress={handleCamera}
                   >
                     <Ionicons name="camera" size={20} color={colors.gold} />
                     <Text style={[s.heroActionTxt, { color: colors.text }]}>Camera</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    style={[s.heroActionBtn, { backgroundColor: colors.card }]}
+                    style={[s.heroActionBtn, { backgroundColor: colors.card, borderColor: colors.cardBorder, borderWidth: 1 }]}
                     onPress={handleGallery}
                   >
                     <Ionicons name="images" size={20} color={colors.gold} />
@@ -707,8 +718,8 @@ const s = StyleSheet.create({
   },
   body: { flex: 1 },
   scrollContent: { 
-      paddingHorizontal: 20, 
-      paddingTop: 20, 
+      paddingHorizontal: 18, 
+      paddingTop: 16, 
       paddingBottom: 160,
       width: '100%',
       maxWidth: 900,
@@ -775,13 +786,13 @@ const s = StyleSheet.create({
   // Hero Section
   heroSection: {
     padding: 24,
-    borderRadius: 32,
+    borderRadius: 28,
     borderWidth: 1,
     marginBottom: 20,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.08,
     shadowRadius: 16,
-    elevation: 4,
+    elevation: 3,
   },
   dropzone: {
     alignItems: "center",
@@ -801,17 +812,17 @@ const s = StyleSheet.create({
     marginBottom: 16,
   },
   dropzoneTitle: { fontSize: 18, fontWeight: "800", marginBottom: 6 },
-  dropzoneSub: { fontSize: 13, textAlign: "center", marginBottom: 20 },
-  heroActions: { flexDirection: "row", gap: 12, width: "100%" },
+  dropzoneSub: { fontSize: 13, textAlign: "center", marginBottom: 20, opacity: 0.8 },
+  heroActions: { flexDirection: "row", gap: 10, width: "100%" },
   heroActionBtn: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     padding: 14,
-    borderRadius: 16,
+    borderRadius: 14,
   },
-  heroActionTxt: { fontSize: 14, fontWeight: "600", marginLeft: 8 },
+  heroActionTxt: { fontSize: 13, fontWeight: "700", marginLeft: 8 },
 
   dividerRow: { flexDirection: "row", alignItems: "center", marginBottom: 20 },
   line: { flex: 1, height: 1 },
@@ -882,14 +893,14 @@ const s = StyleSheet.create({
   featureItemTxt: { fontSize: 12, fontWeight: "600", marginLeft: 8 },
 
   // Results Styles
-  resultCard: { borderRadius: 32, padding: 24, marginBottom: 20 },
-  resultImageWrapper: { marginHorizontal: -24, marginTop: -24, marginBottom: 24, borderRadius: 32, overflow: "hidden", height: 280 },
+  resultCard: { borderRadius: 28, padding: 22, marginBottom: 20, elevation: 4, shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.08, shadowRadius: 14 },
+  resultImageWrapper: { marginHorizontal: -22, marginTop: -22, marginBottom: 24, borderTopLeftRadius: 28, borderTopRightRadius: 28, overflow: "hidden", height: 260 },
   resultImage: { width: "100%", height: "100%" },
-  resultImageGradient: { position: "absolute", bottom: 0, left: 0, right: 0, height: 140, justifyContent: "flex-end", padding: 24 },
+  resultImageGradient: { position: "absolute", bottom: 0, left: 0, right: 0, height: 120, justifyContent: "flex-end", padding: 22 },
   resultHeaderOverlay: { flexDirection: "row", alignItems: "flex-end", justifyContent: "space-between" },
-  resultNameOverlay: { fontSize: 24, fontWeight: "800", color: "#fff", marginBottom: 4 },
-  resultCalsOverlay: { fontSize: 14, fontWeight: "500", color: "rgba(255,255,255,0.8)" },
-  compTxtOverlay: { color: "#fff", fontSize: 13, fontWeight: "800", letterSpacing: 0.5 },
+  resultNameOverlay: { fontSize: 22, fontWeight: "900", color: "#fff", marginBottom: 4, letterSpacing: -0.5 },
+  resultCalsOverlay: { fontSize: 14, fontWeight: "600", color: "rgba(255,255,255,0.7)" },
+  compTxtOverlay: { color: "#fff", fontSize: 12, fontWeight: "800", letterSpacing: 0.5 },
 
   resultHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start" },
   resultName: { fontSize: 24, fontWeight: "800", marginBottom: 4 },
@@ -904,20 +915,20 @@ const s = StyleSheet.create({
   warningBox: { flexDirection: "row", alignItems: "flex-start", padding: 16, borderRadius: 16, borderWidth: 1, marginBottom: 20 },
   warningTxt: { flex: 1, fontSize: 14, lineHeight: 20, fontWeight: "600" },
 
-  sectionTitle: { fontSize: 16, fontWeight: "800", marginBottom: 16, marginTop: 8 },
-  impactRowResult: { flexDirection: "row", gap: 12, marginBottom: 24 },
-  impactColResult: { flex: 1, padding: 16, borderRadius: 20, alignItems: "center" },
-  impactDoshaResult: { fontSize: 13, fontWeight: "600", marginBottom: 8 },
+  sectionTitle: { fontSize: 16, fontWeight: "800", marginBottom: 14, marginTop: 8 },
+  impactRowResult: { flexDirection: "row", gap: 10, marginBottom: 24 },
+  impactColResult: { flex: 1, padding: 14, borderRadius: 16, alignItems: "center" },
+  impactDoshaResult: { fontSize: 11, fontWeight: "800", letterSpacing: 1, marginBottom: 8, textTransform: "uppercase", opacity: 0.7 },
   impactBadgeWrapper: { flexDirection: "row", alignItems: "center" },
-  impactDot: { width: 8, height: 8, borderRadius: 4, marginRight: 6 },
-  impactValResult: { fontSize: 14, fontWeight: "800" },
+  impactDot: { width: 6, height: 6, borderRadius: 3, marginRight: 6 },
+  impactValResult: { fontSize: 13, fontWeight: "800" },
 
-  propsGridResult: { flexDirection: "row", flexWrap: "wrap", gap: 12, marginBottom: 32 },
-  propBlockResult: { width: "48%", padding: 16, borderRadius: 20 },
-  propLabelResult: { fontSize: 12, fontWeight: "700", letterSpacing: 0.5, marginBottom: 4 },
-  propValResult: { fontSize: 15, fontWeight: "700" },
+  propsGridResult: { flexDirection: "row", flexWrap: "wrap", gap: 10, marginBottom: 32 },
+  propBlockResult: { width: "48%", padding: 14, borderRadius: 16 },
+  propLabelResult: { fontSize: 11, fontWeight: "800", letterSpacing: 1, marginBottom: 4, textTransform: "uppercase", opacity: 0.6 },
+  propValResult: { fontSize: 14, fontWeight: "700" },
 
-  scanAnotherBtn: { flexDirection: "row", padding: 18, borderRadius: 20, alignItems: "center", justifyContent: "center" },
-  scanAnotherTxt: { fontSize: 16, fontWeight: "700" },
+  scanAnotherBtn: { flexDirection: "row", padding: 16, borderRadius: 18, alignItems: "center", justifyContent: "center" },
+  scanAnotherTxt: { fontSize: 15, fontWeight: "800" },
 });
 

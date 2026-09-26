@@ -4,6 +4,8 @@
  * Routes vision requests directly to an image-capable model.
  */
 
+const API_SECRET_KEY = process.env.EXPO_PUBLIC_BACKEND_API_KEY || "ayurnutri_secure_key_2026";
+
 /* ═══════════════════════════════════════════
    callAIVision — image + text
    ═══════════════════════════════════════════ */
@@ -22,7 +24,8 @@ export async function callAIVision(
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
-            "Bypass-Tunnel-Reminder": "true"
+            "Bypass-Tunnel-Reminder": "true",
+            "x-api-key": API_SECRET_KEY
         },
         body: JSON.stringify({ 
             prompt, 
@@ -89,7 +92,8 @@ export async function callAIChat(
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
-                "Bypass-Tunnel-Reminder": "true" 
+                "Bypass-Tunnel-Reminder": "true",
+                "x-api-key": API_SECRET_KEY
             },
             body: JSON.stringify({ query: prompt }),
         });
@@ -139,7 +143,8 @@ export async function callAI(
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
-            "Bypass-Tunnel-Reminder": "true"
+            "Bypass-Tunnel-Reminder": "true",
+            "x-api-key": API_SECRET_KEY
         },
         body: JSON.stringify({ prompt }),
     });
