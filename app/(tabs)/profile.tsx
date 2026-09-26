@@ -370,7 +370,8 @@ export default function ProfileScreen() {
 
   const handleScroll = (event: any) => {
     const offsetY = event.nativeEvent.contentOffset.y;
-    setIsScrolled(offsetY > 10);
+    if (offsetY > 10 && !isScrolled) setIsScrolled(true);
+    if (offsetY <= 10 && isScrolled) setIsScrolled(false);
   };
 
   return (
@@ -891,7 +892,7 @@ const s = StyleSheet.create({
   headerBlock: {
     borderBottomLeftRadius: 36,
     borderBottomRightRadius: 36,
-    overflow: "hidden",
+    zIndex: 10,
   },
   headerContent: { 
     paddingTop: SAFE_TOP_PADDING + 10, 
