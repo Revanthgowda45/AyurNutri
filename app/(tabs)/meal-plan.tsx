@@ -343,7 +343,8 @@ export default function MealPlanScreen() {
           method: 'POST',
           headers: { 
               'Content-Type': 'application/json',
-              'Bypass-Tunnel-Reminder': 'true'
+              'Bypass-Tunnel-Reminder': 'true',
+              'x-api-key': process.env.EXPO_PUBLIC_BACKEND_API_KEY || 'ayurnutri_secure_key_2026'
           },
           body: JSON.stringify(payload)
         });
@@ -504,7 +505,8 @@ export default function MealPlanScreen() {
           method: 'POST',
           headers: { 
               'Content-Type': 'application/json',
-              'Bypass-Tunnel-Reminder': 'true'
+              'Bypass-Tunnel-Reminder': 'true',
+              'x-api-key': process.env.EXPO_PUBLIC_BACKEND_API_KEY || 'ayurnutri_secure_key_2026'
           },
           body: JSON.stringify(payload)
         });

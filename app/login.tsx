@@ -3,6 +3,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
+import * as AuthSession from "expo-auth-session";
+import { SAFE_TOP_PADDING } from "@/utils/safeArea";
 import React, { useEffect, useRef, useState } from "react";
 import {
     ActivityIndicator,
@@ -31,7 +34,7 @@ const INPUT_BG = "rgba(255,255,255,0.06)";
 
 export default function LoginScreen() {
     const router = useRouter();
-    const { signIn } = useAuth();
+    const { signIn, signInWithGoogle } = useAuth();
     const { width } = useWindowDimensions();
     const isDesktop = width > 900;
 
@@ -43,6 +46,13 @@ export default function LoginScreen() {
     const [emailFocused, setEmailFocused] = useState(false);
     const [pwFocused, setPwFocused] = useState(false);
 
+    const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+        webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+        androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
+        redirectUri: AuthSession.makeRedirectUri(),
+        prompt: AuthSession.Prompt.SelectAccount,
+    });
+
     const fade = useRef(new Animated.Value(0)).current;
     const slide = useRef(new Animated.Value(24)).current;
 
@@ -52,6 +62,21 @@ export default function LoginScreen() {
             Animated.timing(slide, { toValue: 0, duration: 600, useNativeDriver: true }),
         ]).start();
     }, []);
+
+    useEffect(() => {
+        if (response?.type === "success") {
+            const { id_token } = response.params;
+            if (id_token) {
+                setLoading(true);
+                signInWithGoogle(id_token)
+                    .then(() => router.replace("/(tabs)/home"))
+                    .catch((e: any) => {
+                        setError(e?.message || "Google sign in failed.");
+                        setLoading(false);
+                    });
+            }
+        }
+    }, [response]);
 
     const handleLogin = async () => {
         setError("");
@@ -89,6 +114,27 @@ export default function LoginScreen() {
                     <Text style={s.errText}>{error}</Text>
                 </View>
             ) : null}
+
+            {/* Google Login */}
+            <TouchableOpacity
+                style={s.googleBtn}
+                activeOpacity={0.85}
+                onPress={() => promptAsync()}
+                disabled={!request || loading}
+            >
+                <Image 
+                    source={{ uri: "https://img.icons8.com/color/48/000000/google-logo.png" }} 
+                    style={{ width: 22, height: 22, marginRight: 12 }} 
+                    resizeMode="contain"
+                />
+                <Text style={s.googleBtnText}>Continue with Google</Text>
+            </TouchableOpacity>
+
+            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 24, paddingHorizontal: 20 }}>
+                <View style={{ flex: 1, height: 1, backgroundColor: BORDER }} />
+                <Text style={{ marginHorizontal: 12, fontSize: 12, color: MUTED, fontWeight: "600", letterSpacing: 1 }}>OR</Text>
+                <View style={{ flex: 1, height: 1, backgroundColor: BORDER }} />
+            </View>
 
             {/* Email */}
             <View style={s.fieldWrap}>
@@ -148,6 +194,7 @@ export default function LoginScreen() {
                     </>
                 }
             </TouchableOpacity>
+
 
             <View style={s.switchRow}>
                 <Text style={s.switchText}>Don't have an account? </Text>
@@ -263,7 +310,7 @@ const s = StyleSheet.create({
     rightScroll: { flexGrow: 1, justifyContent: "center", alignItems: "center", paddingVertical: 60, paddingHorizontal: 20 },
 
     /* Mobile */
-    mobileScroll: { flexGrow: 1, paddingHorizontal: 26, paddingTop: 70, paddingBottom: 200, backgroundColor: "#050E07", alignItems: "center" },
+    mobileScroll: { flexGrow: 1, paddingHorizontal: 26, paddingTop: Math.max(80, SAFE_TOP_PADDING + 40), paddingBottom: 200, backgroundColor: "#050E07", alignItems: "center" },
 
     /* Form */
     formWrap: { width: "100%", maxWidth: 420 },
@@ -282,6 +329,9 @@ const s = StyleSheet.create({
     inputRow: { flexDirection: "row", alignItems: "center", backgroundColor: INPUT_BG, borderWidth: 1, borderColor: BORDER, borderRadius: 16, paddingHorizontal: 16, height: 56 },
     inputFocused: { borderColor: `${GOLD}70`, backgroundColor: `${GOLD}06` },
     input: { flex: 1, fontSize: 15, color: CREAM },
+
+    googleBtn: { flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: "#111827", borderWidth: 1, borderColor: "rgba(255,255,255,0.1)", height: 56, borderRadius: 16, marginBottom: 28 },
+    googleBtnText: { color: CREAM, fontSize: 15, fontWeight: "700" },
 
     forgotWrap: { alignItems: "flex-end", marginBottom: 28, marginTop: -4 },
     forgotText: { fontSize: 13, color: GOLD, fontWeight: "700" },

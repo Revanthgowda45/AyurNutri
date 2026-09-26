@@ -16,6 +16,7 @@ import React, {
     useEffect,
     useState,
 } from "react";
+import { Platform } from "react-native";
 
 /* ───────── Types ───────── */
 interface AuthContextType {
@@ -83,6 +84,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const signOut = async () => {
         await firebaseSignOut(auth);
         setUser(null);
+
+        // Completely clear session data on web
+        if (Platform.OS === "web") {
+            try {
+                // Clear all cookies
+                document.cookie.split(";").forEach((c) => {
+                    document.cookie = c
+                        .replace(/^ +/, "")
+                        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                });
+                // Clear local storage and session storage
+                window.localStorage.clear();
+                window.sessionStorage.clear();
+            } catch (e) {
+                console.warn("Could not clear web storage:", e);
+            }
+        }
     };
 
     return (

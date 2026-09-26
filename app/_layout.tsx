@@ -6,23 +6,26 @@ import { Stack } from "expo-router";
 import * as NavigationBar from "expo-navigation-bar";
 import { useEffect } from "react";
 import { Platform } from "react-native";
+import * as WebBrowser from "expo-web-browser";
 
-// Force Android navigation bar to be opaque early before React mounts
-if (Platform.OS === "android") {
-  NavigationBar.setPositionAsync("relative");
-}
+WebBrowser.maybeCompleteAuthSession();
+
+// Edge-to-Edge layout is enabled by default in new Expo versions.
 
 function ThemeSync() {
   const { colors } = useTheme();
 
   useEffect(() => {
     if (Platform.OS === "android") {
-      NavigationBar.setBackgroundColorAsync(colors.navBarBg);
-      NavigationBar.setButtonStyleAsync(
-        colors.navBarStyle === "dark-content" ? "dark" : "light"
-      );
+      try {
+        NavigationBar.setButtonStyleAsync(
+          colors.navBarStyle === "dark-content" ? "dark" : "light"
+        );
+      } catch (e) {
+        // Edge-to-edge might block this on some versions, safely catch.
+      }
     }
-  }, [colors.navBarBg, colors.navBarStyle]);
+  }, [colors.navBarStyle]);
 
   return null;
 }

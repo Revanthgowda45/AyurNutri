@@ -21,13 +21,9 @@
                 "EXPO_PUBLIC_FIREBASE_APP_ID": "1:566907863017:web:c30f3e99089c5d4b0ad578",
                 "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID": "G-85EJW0YZJ9",
                 "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
-                "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
-                "EXPO_PUBLIC_GROQ_API_KEY": "",
-                "EXPO_PUBLIC_GROQ_MODELS": "openai/gpt-oss-120b,openai/gpt-oss-20b,qwen/qwen3.6-27b",
-                "EXPO_PUBLIC_OPENROUTER_API_KEY": "",
-                "EXPO_PUBLIC_OPENROUTER_MODELS": "dots-studio/dots-3-note-preview:free,nvidia/nemotron-nano-12b-v2-vl:free,nvidia/nemotron-3.5-lightning:free,nvidia/nemotron-3-super-120b-a12b:free,nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free,nvidia/nemotron-3-nano-30b-a3b:free,nvidia/nemotron-nano-12b-v2-vl:free",
-                "EXPO_PUBLIC_AGENTROUTER_API_KEY": "",
-                "EXPO_PUBLIC_AGENTROUTER_MODELS": "gpt-4o,claude-3-5-sonnet,deepseek-r1,deepseek-v3"
+                "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-11bnqdvh762ooaqm80cfiktac25o35qk.apps.googleusercontent.com",
+                "EXPO_PUBLIC_BACKEND_URL": "https://web-production-fc3895.up.railway.app",
+                "EXPO_PUBLIC_BACKEND_API_KEY": "ayurnutri_secure_key_2026"
             }
         },
         "production": {
@@ -40,13 +36,9 @@
                 "EXPO_PUBLIC_FIREBASE_APP_ID": "1:566907863017:web:c30f3e99089c5d4b0ad578",
                 "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID": "G-85EJW0YZJ9",
                 "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
-                "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
-                "EXPO_PUBLIC_GROQ_API_KEY": "",
-                "EXPO_PUBLIC_GROQ_MODELS": "openai/gpt-oss-120b,openai/gpt-oss-20b,qwen/qwen3.6-27b",
-                "EXPO_PUBLIC_OPENROUTER_API_KEY": "",
-                "EXPO_PUBLIC_OPENROUTER_MODELS": "dots-studio/dots-3-note-preview:free,nvidia/nemotron-nano-12b-v2-vl:free,nvidia/nemotron-3.5-lightning:free,nvidia/nemotron-3-super-120b-a12b:free,nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free,nvidia/nemotron-3-nano-30b-a3b:free,nvidia/nemotron-nano-12b-v2-vl:free",
-                "EXPO_PUBLIC_AGENTROUTER_API_KEY": "",
-                "EXPO_PUBLIC_AGENTROUTER_MODELS": "gpt-4o,claude-3-5-sonnet,deepseek-r1,deepseek-v3"
+                "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-11bnqdvh762ooaqm80cfiktac25o35qk.apps.googleusercontent.com",
+                "EXPO_PUBLIC_BACKEND_URL": "https://web-production-fc3895.up.railway.app",
+                "EXPO_PUBLIC_BACKEND_API_KEY": "ayurnutri_secure_key_2026"
             }
         }
     },

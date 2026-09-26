@@ -3,6 +3,7 @@ import { useTheme } from "@/context/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { SAFE_TOP_PADDING } from "@/utils/safeArea";
 import React, { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -130,7 +131,7 @@ export default function LandingPage() {
         {/* NAVBAR */}
         <Animated.View style={[s.nav, isDesktop && s.navDesktop, slideIn(navAnim, -16)]}>
           {isDesktop && <View style={s.navGlass} />}
-          <View style={s.navInner}>
+          <View style={[s.navInner, isDesktop && s.navInnerDesktop]}>
             <View style={s.navBrand}>
               <Image source={require("../assets/images/logo.png")} style={s.navLogo} resizeMode="contain" />
               <Text style={s.navBrandText}>AyurNutri</Text>
@@ -267,11 +268,12 @@ const s = StyleSheet.create({
 
   glow: { position: "absolute", height: 400, opacity: 0.12, borderRadius: 999, filter: "blur(100px)" as any },
 
-  nav: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 8, zIndex: 100 },
+  nav: { paddingHorizontal: 24, paddingTop: Math.max(24, SAFE_TOP_PADDING + 12), paddingBottom: 12, zIndex: 100 },
   navDesktop: { paddingHorizontal: 0, paddingTop: 20, position: "sticky" as any, top: 0 },
   navGlass: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(5,14,7,0.8)", backdropFilter: "blur(20px)" as any, borderBottomWidth: 1, borderBottomColor: BORDER },
-  navInner: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", maxWidth: 1200, alignSelf: "center", width: "100%", paddingHorizontal: 40, paddingVertical: 14 },
-  navBrand: { flexDirection: "row", alignItems: "center", gap: 10 },
+  navInner: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", maxWidth: 1200, alignSelf: "center", width: "100%", paddingVertical: 10 },
+  navInnerDesktop: { paddingHorizontal: 40, paddingVertical: 14 },
+  navBrand: { flexDirection: "row", alignItems: "center", gap: 8 },
   navLogo: { width: 36, height: 36 },
   navBrandText: { fontSize: 22, fontWeight: "800", color: CREAM, letterSpacing: 0.5 },
   navLinks: { flexDirection: "row", gap: 36 },
