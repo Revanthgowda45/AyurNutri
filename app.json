@@ -12,6 +12,7 @@
     "userInterfaceStyle": "automatic",
     "android": {
       "package": "com.ayurnutri.app",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "backgroundColor": "#ffffff",
         "foregroundImage": "./assets/images/adaptive-icon.png"
