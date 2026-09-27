@@ -1,9 +1,10 @@
-import { useTheme } from "@/context/ThemeContext";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
+import * as firestore from "@/services/firestoreService";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { Tabs, useRouter } from "expo-router";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
     Animated,
     Image,
@@ -16,15 +17,14 @@ import {
     useWindowDimensions,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import * as firestore from "@/services/firestoreService";
 
 /* ─── TABS CONFIG ─── */
 const TABS = [
-    { key: "home",      label: "Home",       icon: "home-outline",       iconFocused: "home",       category: "main",    emoji: "🏠" },
-    { key: "meal-plan", label: "Meal Plan",  icon: "restaurant-outline", iconFocused: "restaurant", category: "main",    emoji: "🥗" },
-    { key: "scanner",   label: "Scanner",    icon: "scan-outline",       iconFocused: "scan",       category: "tools",   emoji: "📷" },
-    { key: "dietitian", label: "Dietitian",  icon: "medkit-outline",     iconFocused: "medkit",     category: "tools",   emoji: "🏥" },
-    { key: "profile",   label: "Profile",    icon: "person-outline",     iconFocused: "person",     category: "account", emoji: "👤" },
+    { key: "home", label: "Home", icon: "home-outline", iconFocused: "home", category: "main", emoji: "🏠" },
+    { key: "meal-plan", label: "Meal Plan", icon: "restaurant-outline", iconFocused: "restaurant", category: "main", emoji: "🥗" },
+    { key: "scanner", label: "Scanner", icon: "scan-outline", iconFocused: "scan", category: "tools", emoji: "📷" },
+    { key: "dietitian", label: "Dietitian", icon: "medkit-outline", iconFocused: "medkit", category: "tools", emoji: "🏥" },
+    { key: "profile", label: "Profile", icon: "person-outline", iconFocused: "person", category: "account", emoji: "👤" },
 ];
 
 /* ─── Animated Mobile Tab Button ─── */
@@ -545,7 +545,7 @@ const st = StyleSheet.create({
         overflow: "hidden",
     },
     sidebarItemBg: {
-        ...StyleSheet.absoluteFillObject,
+        ...StyleSheet.absoluteFill,
         borderRadius: 12,
         borderWidth: 1,
     },

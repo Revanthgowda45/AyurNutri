@@ -844,7 +844,7 @@ const s = StyleSheet.create({
 
     /* Hero */
     hero: { height: 280, borderBottomLeftRadius: 32, borderBottomRightRadius: 32, overflow: "hidden" },
-    heroOverlay: { ...StyleSheet.absoluteFillObject },
+    heroOverlay: { ...StyleSheet.absoluteFill },
     heroContent: { flex: 1, paddingTop: SAFE_TOP_PADDING, paddingBottom: 28, paddingHorizontal: 22, justifyContent: "space-between", position: "relative", zIndex: 2 },
     heroTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
     heroTopRight: { flexDirection: "row", alignItems: "center", gap: 10 },

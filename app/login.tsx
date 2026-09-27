@@ -255,7 +255,7 @@ export default function LoginScreen() {
 
                     {/* Right form panel */}
                     <View style={s.rightPanel}>
-                        <LinearGradient colors={["#050E07", "#0A1A10"]} style={StyleSheet.absoluteFillObject} />
+                        <LinearGradient colors={["#050E07", "#0A1A10"]} style={StyleSheet.absoluteFill} />
                         <ScrollView contentContainerStyle={s.rightScroll} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
                             {formContent}
                         </ScrollView>
@@ -279,7 +279,7 @@ export default function LoginScreen() {
     return (
         <View style={s.root}>
             <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
-            <LinearGradient colors={["#050E07", "#0A1A10"]} style={StyleSheet.absoluteFillObject} />
+            <LinearGradient colors={["#050E07", "#0A1A10"]} style={StyleSheet.absoluteFill} />
             <View style={[s.glow, { top: -120, left: "10%" as any, width: "70%" as any, backgroundColor: GOLD }]} />
             {Platform.OS !== "web" ? (
                 <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>

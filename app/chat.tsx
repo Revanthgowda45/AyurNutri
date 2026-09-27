@@ -291,7 +291,7 @@ export default function ChatScreen() {
   if (isDesktop) {
     return (
       <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.2)', justifyContent: 'flex-end', alignItems: 'flex-end', padding: 24 }}>
-        <TouchableOpacity style={StyleSheet.absoluteFillObject} activeOpacity={1} onPress={() => router.back()} />
+        <TouchableOpacity style={StyleSheet.absoluteFill} activeOpacity={1} onPress={() => router.back()} />
         <View style={{ width: 360, height: 550, maxHeight: windowHeight - 48, backgroundColor: colors.background, borderRadius: 24, overflow: 'hidden', shadowColor: '#000', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.15, shadowRadius: 20, elevation: 20 }}>
           <View style={[st.container, { flex: 1, backgroundColor: colors.background }]}>
             {/* Header */}

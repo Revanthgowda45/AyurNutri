@@ -8,6 +8,8 @@ const NOTIF_PROMPT_KEY = 'ayurnutri_notif_prompted';
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
+    shouldShowBanner: true,
+    shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: true,
   }),
@@ -73,25 +75,25 @@ export async function scheduleDailyAyurvedicReminders() {
   // 1. Morning Water (7:00 AM)
   await Notifications.scheduleNotificationAsync({
     content: { title: "💧 Hydration Time", body: "Start your day with a warm glass of water!" },
-    trigger: { hour: 7, minute: 0, repeats: true },
+    trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: 7, minute: 0 },
   });
 
   // 2. Breakfast (8:30 AM)
   await Notifications.scheduleNotificationAsync({
     content: { title: "🥞 Breakfast Time", body: "Time for a healthy, balancing breakfast!" },
-    trigger: { hour: 8, minute: 30, repeats: true },
+    trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: 8, minute: 30 },
   });
 
   // 3. Lunch - Largest Meal (1:00 PM - High Pitta time)
   await Notifications.scheduleNotificationAsync({
     content: { title: "🍲 Lunch Time", body: "Your digestive fire is highest now. Enjoy a hearty lunch!" },
-    trigger: { hour: 13, minute: 0, repeats: true },
+    trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: 13, minute: 0 },
   });
 
   // 4. Dinner - Light Meal (7:30 PM)
   await Notifications.scheduleNotificationAsync({
     content: { title: "🥗 Dinner Time", body: "Time for a light, easily digestible dinner before bed." },
-    trigger: { hour: 19, minute: 30, repeats: true },
+    trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: 19, minute: 30 },
   });
 }
 

@@ -117,7 +117,7 @@ export default function LandingPage() {
 
       <LinearGradient
         colors={["#050E07", "#0A1A10", "#050E07"]}
-        style={StyleSheet.absoluteFillObject}
+        style={StyleSheet.absoluteFill}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       />
@@ -228,7 +228,7 @@ export default function LandingPage() {
         <View style={[s.ctaBanner, isDesktop && s.ctaBannerDesktop]}>
           <LinearGradient
             colors={["rgba(212,162,78,0.15)", "rgba(16,185,129,0.10)"]}
-            style={StyleSheet.absoluteFillObject}
+            style={StyleSheet.absoluteFill}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
           />
@@ -270,7 +270,7 @@ const s = StyleSheet.create({
 
   nav: { paddingHorizontal: 24, paddingTop: Math.max(24, SAFE_TOP_PADDING + 12), paddingBottom: 12, zIndex: 100 },
   navDesktop: { paddingHorizontal: 0, paddingTop: 20, position: "sticky" as any, top: 0 },
-  navGlass: { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(5,14,7,0.8)", backdropFilter: "blur(20px)" as any, borderBottomWidth: 1, borderBottomColor: BORDER },
+  navGlass: { ...StyleSheet.absoluteFill, backgroundColor: "rgba(5,14,7,0.8)", backdropFilter: "blur(20px)" as any, borderBottomWidth: 1, borderBottomColor: BORDER },
   navInner: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", maxWidth: 1200, alignSelf: "center", width: "100%", paddingVertical: 10 },
   navInnerDesktop: { paddingHorizontal: 40, paddingVertical: 14 },
   navBrand: { flexDirection: "row", alignItems: "center", gap: 8 },

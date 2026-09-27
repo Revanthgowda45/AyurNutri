@@ -18,7 +18,7 @@ function ThemeSync() {
   useEffect(() => {
     if (Platform.OS === "android") {
       try {
-        NavigationBar.setButtonStyleAsync(
+        NavigationBar.setStyle(
           colors.navBarStyle === "dark-content" ? "dark" : "light"
         );
       } catch (e) {
