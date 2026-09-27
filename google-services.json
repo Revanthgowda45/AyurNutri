@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "566907863017-b58d9ved24530tsnbrettgoabt7etfd8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ayurnutri.app",
+            "certificate_hash": "35f555f2251bf503e298832bcf5128275cb7abfd"
+          }
+        },
+        {
           "client_id": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -652,24 +652,31 @@ export default function MealPlanScreen() {
     currentDay?.meals?.filter((_, i) => checkedMeals[`${selectedDay}-${i}`])
       .length || 0;
   const totalMeals = currentDay?.meals?.length || 0;
-  const consumedCal =
+  const consumedCal = Math.round(
     currentDay?.meals
       ?.filter((_, i) => checkedMeals[`${selectedDay}-${i}`])
-      .reduce((sum, m) => sum + m.calories, 0) || 0;
+      .reduce((sum, m) => sum + m.calories, 0) || 0
+  );
 
-  const consumedProtein = currentDay?.meals
-    ?.filter((_, i) => checkedMeals[`${selectedDay}-${i}`])
-    .reduce((sum, m) => sum + (m.protein || 0), 0) || 0;
-  const consumedCarbs = currentDay?.meals
-    ?.filter((_, i) => checkedMeals[`${selectedDay}-${i}`])
-    .reduce((sum, m) => sum + (m.carbs || 0), 0) || 0;
-  const consumedFat = currentDay?.meals
-    ?.filter((_, i) => checkedMeals[`${selectedDay}-${i}`])
-    .reduce((sum, m) => sum + (m.fat || 0), 0) || 0;
+  const consumedProtein = Math.round(
+    currentDay?.meals
+      ?.filter((_, i) => checkedMeals[`${selectedDay}-${i}`])
+      .reduce((sum, m) => sum + (m.protein || 0), 0) || 0
+  );
+  const consumedCarbs = Math.round(
+    currentDay?.meals
+      ?.filter((_, i) => checkedMeals[`${selectedDay}-${i}`])
+      .reduce((sum, m) => sum + (m.carbs || 0), 0) || 0
+  );
+  const consumedFat = Math.round(
+    currentDay?.meals
+      ?.filter((_, i) => checkedMeals[`${selectedDay}-${i}`])
+      .reduce((sum, m) => sum + (m.fat || 0), 0) || 0
+  );
 
-  const targetProtein = currentDay?.meals?.reduce((a, m) => a + (m.protein || 0), 0) || 0;
-  const targetCarbs = currentDay?.meals?.reduce((a, m) => a + (m.carbs || 0), 0) || 0;
-  const targetFat = currentDay?.meals?.reduce((a, m) => a + (m.fat || 0), 0) || 0;
+  const targetProtein = Math.round(currentDay?.meals?.reduce((a, m) => a + (m.protein || 0), 0) || 0);
+  const targetCarbs = Math.round(currentDay?.meals?.reduce((a, m) => a + (m.carbs || 0), 0) || 0);
+  const targetFat = Math.round(currentDay?.meals?.reduce((a, m) => a + (m.fat || 0), 0) || 0);
 
   // Week-level stats
   const weekCompletedMeals = weekPlan?.days
@@ -1549,7 +1556,7 @@ export default function MealPlanScreen() {
                   <Text style={[s.calRingUnit, { color: colors.textMuted }]}>kcal</Text>
                 </View>
               </View>
-              <Text style={[s.calRingOf, { color: colors.textMuted }]}>of {currentDay?.totalCalories || 0}</Text>
+              <Text style={[s.calRingOf, { color: colors.textMuted }]}>of {Math.round(currentDay?.totalCalories || 0)}</Text>
             </View>
 
             {/* Macro Bars Section */}
@@ -1579,7 +1586,7 @@ export default function MealPlanScreen() {
               })}
               <View style={s.calRemainRow}>
                 <Text style={[s.calRemainLabel, { color: colors.textMuted }]}>Remaining</Text>
-                <Text style={[s.calRemainVal, { color: '#F59E0B' }]}>{(currentDay?.totalCalories || 0) - consumedCal} kcal</Text>
+                <Text style={[s.calRemainVal, { color: '#F59E0B' }]}>{Math.round((currentDay?.totalCalories || 0) - consumedCal)} kcal</Text>
               </View>
             </View>
           </View>

@@ -47,3 +47,4 @@ app-example
 .netlify
 
 .vercel
+.env*

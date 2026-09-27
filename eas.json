@@ -1,48 +1,51 @@
 {
-    "cli": {
-        "version": ">= 10.2.0"
+  "cli": {
+    "version": ">= 10.2.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development"
     },
-    "build": {
-        "development": {
-            "developmentClient": true,
-            "distribution": "internal"
-        },
-        "preview": {
-            "distribution": "internal",
-            "android": {
-                "buildType": "apk"
-            },
-            "env": {
-                "EXPO_PUBLIC_FIREBASE_API_KEY": "AIzaSyCU4gM649vWdTgGmGFxonuVfYR9tQ0D8jk",
-                "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "ayurnutri-9d2bd.firebaseapp.com",
-                "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "ayurnutri-9d2bd",
-                "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "ayurnutri-9d2bd.firebasestorage.app",
-                "EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "566907863017",
-                "EXPO_PUBLIC_FIREBASE_APP_ID": "1:566907863017:web:c30f3e99089c5d4b0ad578",
-                "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID": "G-85EJW0YZJ9",
-                "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
-                "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-11bnqdvh762ooaqm80cfiktac25o35qk.apps.googleusercontent.com",
-                "EXPO_PUBLIC_BACKEND_URL": "https://web-production-fc3895.up.railway.app",
-                "EXPO_PUBLIC_BACKEND_API_KEY": "ayurnutri_secure_key_2026"
-            }
-        },
-        "production": {
-            "env": {
-                "EXPO_PUBLIC_FIREBASE_API_KEY": "AIzaSyCU4gM649vWdTgGmGFxonuVfYR9tQ0D8jk",
-                "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "ayurnutri-9d2bd.firebaseapp.com",
-                "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "ayurnutri-9d2bd",
-                "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "ayurnutri-9d2bd.firebasestorage.app",
-                "EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "566907863017",
-                "EXPO_PUBLIC_FIREBASE_APP_ID": "1:566907863017:web:c30f3e99089c5d4b0ad578",
-                "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID": "G-85EJW0YZJ9",
-                "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
-                "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-11bnqdvh762ooaqm80cfiktac25o35qk.apps.googleusercontent.com",
-                "EXPO_PUBLIC_BACKEND_URL": "https://web-production-fc3895.up.railway.app",
-                "EXPO_PUBLIC_BACKEND_API_KEY": "ayurnutri_secure_key_2026"
-            }
-        }
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_FIREBASE_API_KEY": "AIzaSyCU4gM649vWdTgGmGFxonuVfYR9tQ0D8jk",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "ayurnutri-9d2bd.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "ayurnutri-9d2bd",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "ayurnutri-9d2bd.firebasestorage.app",
+        "EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "566907863017",
+        "EXPO_PUBLIC_FIREBASE_APP_ID": "1:566907863017:web:c30f3e99089c5d4b0ad578",
+        "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID": "G-85EJW0YZJ9",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
+        "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-b58d9ved24530tsnbrettgoabt7etfd8.apps.googleusercontent.com",
+        "EXPO_PUBLIC_BACKEND_URL": "https://web-production-fc3895.up.railway.app",
+        "EXPO_PUBLIC_BACKEND_API_KEY": "ayurnutri_secure_key_2026"
+      },
+      "channel": "preview"
     },
-    "submit": {
-        "production": {}
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_FIREBASE_API_KEY": "AIzaSyCU4gM649vWdTgGmGFxonuVfYR9tQ0D8jk",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "ayurnutri-9d2bd.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "ayurnutri-9d2bd",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET": "ayurnutri-9d2bd.firebasestorage.app",
+        "EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID": "566907863017",
+        "EXPO_PUBLIC_FIREBASE_APP_ID": "1:566907863017:web:c30f3e99089c5d4b0ad578",
+        "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID": "G-85EJW0YZJ9",
+        "EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID": "566907863017-60pu9h4udf0cpqgoqqmr6udkkh509fe1.apps.googleusercontent.com",
+        "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-b58d9ved24530tsnbrettgoabt7etfd8.apps.googleusercontent.com",
+        "EXPO_PUBLIC_BACKEND_URL": "https://web-production-fc3895.up.railway.app",
+        "EXPO_PUBLIC_BACKEND_API_KEY": "ayurnutri_secure_key_2026"
+      },
+      "channel": "production"
     }
+  },
+  "submit": {
+    "production": {}
+  }
 }

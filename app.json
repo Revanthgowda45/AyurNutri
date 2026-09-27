@@ -1,12 +1,14 @@
 {
   "expo": {
     "name": "AyurNutri",
+    "owner": "naruto45",
     "slug": "AyurNutri",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
     "scheme": [
       "ayurnutri",
+      "com.googleusercontent.apps.566907863017-b58d9ved24530tsnbrettgoabt7etfd8",
       "com.googleusercontent.apps.566907863017-11bnqdvh762ooaqm80cfiktac25o35qk"
     ],
     "userInterfaceStyle": "automatic",
@@ -31,12 +33,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
+          "image": "./assets/images/logo.png",
+          "imageWidth": 180,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "#050E07",
           "dark": {
-            "backgroundColor": "#000000"
+            "backgroundColor": "#050E07"
           }
         }
       ],
@@ -52,8 +54,14 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "d3a41fb8-7867-4558-878c-f2b69833d9f7"
+        "projectId": "7d7d9712-0566-4df4-b72b-73a948f54056"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/7d7d9712-0566-4df4-b72b-73a948f54056"
     }
   }
 }

@@ -4,6 +4,7 @@ import { LanguageProvider, useLanguage } from "@/context/LanguageContext";
 import * as firestore from "@/services/firestoreService";
 import { Stack } from "expo-router";
 import * as NavigationBar from "expo-navigation-bar";
+import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { Platform } from "react-native";
 import * as WebBrowser from "expo-web-browser";
@@ -26,6 +27,26 @@ function ThemeSync() {
       }
     }
   }, [colors.navBarStyle]);
+
+  return null;
+}
+
+function SplashController() {
+  const { loading } = useAuth();
+
+  useEffect(() => {
+    const hide = async () => {
+      try {
+        await SplashScreen.hideAsync();
+      } catch (error) {
+        // splash is already hidden or unavailable
+      }
+    };
+
+    if (!loading) {
+      hide();
+    }
+  }, [loading]);
 
   return null;
 }
@@ -74,6 +95,7 @@ export default function RootLayout() {
     <AuthProvider>
       <LanguageProvider>
         <ThemeProvider>
+          <SplashController />
           <ThemeSync />
           <PreferenceSync />
           <Stack
