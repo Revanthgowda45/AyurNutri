@@ -25,6 +25,8 @@ import {
   hasPromptedForNotifications,
   markPromptedForNotifications,
   openAppNotificationSettings,
+  requestNotificationPermissions,
+  scheduleDailyAyurvedicReminders
 } from "@/utils/notifications";
 
 export default function HomeScreen() {
@@ -657,7 +659,12 @@ export default function HomeScreen() {
               onPress={async () => {
                 setShowNotifModal(false);
                 await markPromptedForNotifications();
-                await openAppNotificationSettings();
+                const granted = await requestNotificationPermissions();
+                if (granted) {
+                    await scheduleDailyAyurvedicReminders();
+                } else {
+                    await openAppNotificationSettings();
+                }
               }}
             >
               <Text style={{ color: colors.primaryBtnText, fontSize: 16, fontWeight: '800' }}>Enable Notifications</Text>

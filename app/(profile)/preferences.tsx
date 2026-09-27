@@ -3,7 +3,7 @@ import { SAFE_TOP_PADDING } from "@/utils/safeArea";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage, Language } from "@/context/LanguageContext";
 import * as firestore from "@/services/firestoreService";
-import { openAppNotificationSettings } from "@/utils/notifications";
+import { openAppNotificationSettings, requestNotificationPermissions, cancelAllScheduledNotifications, scheduleDailyAyurvedicReminders } from "@/utils/notifications";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from 'expo-haptics';
 import { useRouter } from "expo-router";
@@ -67,16 +67,26 @@ export default function PreferencesScreen() {
     const handleToggleNotifs = async (val: boolean) => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         if (val) {
-            // Open device settings so user can enable notifications
-            await openAppNotificationSettings();
-            setNotifications(true);
+            const granted = await requestNotificationPermissions();
+            if (granted) {
+                await scheduleDailyAyurvedicReminders();
+                setNotifications(true);
+            } else {
+                await openAppNotificationSettings();
+            }
         } else {
+            await cancelAllScheduledNotifications();
             setNotifications(false);
         }
     };
 
-    const handleToggleReminders = (val: boolean) => {
+    const handleToggleReminders = async (val: boolean) => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        if (val) {
+            await scheduleDailyAyurvedicReminders();
+        } else {
+            await cancelAllScheduledNotifications();
+        }
         setDailyReminders(val);
     };
 

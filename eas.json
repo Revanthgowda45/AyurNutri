@@ -39,9 +39,6 @@
                 "EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID": "566907863017-11bnqdvh762ooaqm80cfiktac25o35qk.apps.googleusercontent.com",
                 "EXPO_PUBLIC_BACKEND_URL": "https://web-production-fc3895.up.railway.app",
                 "EXPO_PUBLIC_BACKEND_API_KEY": "ayurnutri_secure_key_2026"
-            },
-            "android": {
-                "buildType": "apk"
             }
         }
     },
