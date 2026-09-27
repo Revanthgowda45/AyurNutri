@@ -17,6 +17,19 @@ const firebaseConfig = {
 
 import { Platform } from "react-native";
 
+const hasRequiredFirebaseConfig = Object.values(firebaseConfig).every(
+    (value) => typeof value === "string" && value.trim().length > 0
+);
+
+if (!hasRequiredFirebaseConfig) {
+    console.error(
+        "[FirebaseConfig] Missing EXPO_PUBLIC_FIREBASE_* values. Add them to .env and restart the Expo server."
+    );
+    throw new Error(
+        "Firebase configuration is missing. Add the EXPO_PUBLIC_FIREBASE_* values to your local .env file."
+    );
+}
+
 // Initialize Firebase safely (avoiding hot reload duplicate initialization)
 let app: any, auth: any;
 

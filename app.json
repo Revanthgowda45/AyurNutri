@@ -17,10 +17,6 @@
         "foregroundImage": "./assets/images/adaptive-icon.png"
       }
     },
-    "androidNavigationBar": {
-      "barStyle": "light-content",
-      "backgroundColor": "#090E0B"
-    },
     "ios": {
       "bundleIdentifier": "com.ayurnutri.app",
       "supportsTablet": true
@@ -44,10 +40,8 @@
           }
         }
       ],
-      "expo-video",
       "expo-font",
       "expo-web-browser",
-      "expo-image",
       "expo-status-bar",
       "expo-notifications"
     ],
