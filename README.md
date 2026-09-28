@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/images/logo.png" width="120" alt="AyurNutri Logo" />
+</p>
+
 # 🌿 AyurNutri: Hybrid AI Ayurvedic Wellness Platform
 
 [![Expo](https://img.shields.io/badge/Expo-1C2024?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev/)
