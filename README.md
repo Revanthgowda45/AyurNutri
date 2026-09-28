@@ -1,50 +1,81 @@
-# Welcome to your Expo app 👋
+# 🌿 AyurNutri
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+AyurNutri is a comprehensive, AI-powered React Native application designed to merge the ancient wisdom of Ayurveda with modern nutritional science. The app helps users discover their unique Dosha (body type) in minutes and provides personalized diet plans, smart food scanning, and AI-powered wellness insights.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+- **Google Authentication:** Seamless and secure login using Firebase Auth and Google Identity Services.
+- **Dosha Analysis:** Discover your Ayurvedic body type in under 5 minutes.
+- **Personalized Diet Plans:** Receive customized, healthy recipes tailored to your specific Dosha and nutritional goals.
+- **Smart Food Scanning:** Utilize your device's camera to scan food and receive instant Ayurvedic insights.
+- **Beautiful UI:** A modern, cross-platform interface built with `expo-router`, featuring smooth animations, haptics, and custom styling.
 
+## 🛠️ Tech Stack
+
+- **Framework:** [Expo](https://expo.dev/) (React Native) SDK 57
+- **Routing:** Expo Router (File-based routing)
+- **Backend & Auth:** Firebase (Authentication, Storage, Firestore)
+- **UI Components:** React Native Reanimated, Expo Linear Gradient, Expo Vector Icons
+- **Language:** TypeScript
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (LTS recommended)
+- `npm` or `yarn`
+- Expo CLI
+- EAS CLI (for building the app)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Revanthgowda45/AyurNutri.git
+   cd AyurNutri
+   ```
+
+2. **Install dependencies:**
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Set up environment variables:**
+   Create a `.env` file in the root of the project with your Firebase and Google Client ID credentials:
+   ```env
+   EXPO_PUBLIC_FIREBASE_API_KEY=your_api_key
+   EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   EXPO_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+   EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+   EXPO_PUBLIC_FIREBASE_APP_ID=your_app_id
+   EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID=your_google_web_client_id
+   EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID=your_google_android_client_id
+   ```
 
+4. **Start the development server:**
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+## 📱 Building the App
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+This project uses Expo Application Services (EAS) for compiling standalone builds.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+To build an Android APK locally (requires Android Studio & JDK):
 ```bash
-npm run reset-project
+eas build --profile preview --platform android --local
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+To build on Expo's cloud servers:
+```bash
+eas build --profile preview --platform android
+```
 
-## Learn more
+## 🤝 Contributing
 
-To learn more about developing your project with Expo, look at the following resources:
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/Revanthgowda45/AyurNutri/issues) if you want to contribute.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 📜 License
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the MIT License.
