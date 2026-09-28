@@ -53,9 +53,7 @@ export default function SignupScreen() {
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
         webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
         androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID,
-        redirectUri: Platform.OS === 'android' && process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID
-            ? `com.googleusercontent.apps.${process.env.EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID.split('.apps.')[0]}:/oauth2redirect/google` 
-            : AuthSession.makeRedirectUri(),
+        redirectUri: AuthSession.makeRedirectUri({ path: 'signup' }),
         prompt: AuthSession.Prompt.SelectAccount,
     });
 
